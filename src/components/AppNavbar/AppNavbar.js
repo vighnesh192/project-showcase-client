@@ -116,10 +116,10 @@ export default function AppNavbar() {
 				</li>
 			</ul>
 			<div id="nav-buttons">
-				<ColorButton id="sign-up" className={classes.margin}>
+				<ColorButton size="small" id="sign-up" className={classes.margin}>
 					Sign Up
 				</ColorButton>
-				<ColorButton className={classes.margin}>
+				<ColorButton size="small" className={classes.margin}>
 					Login
 				</ColorButton>
 			</div>

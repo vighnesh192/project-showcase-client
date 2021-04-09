@@ -52,6 +52,9 @@ nav ul li {
     text-decoration: none;
     color: #434E5C;
     transition: all 0.4s ease-in-out;
+}
+
+ul .Link {
     margin-left: 1.5rem;
 }
 
