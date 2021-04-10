@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout } from "../../actions/accountActions";
 import clsx from "clsx";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -60,8 +62,8 @@ export default function AppNavbar() {
 				[classes.fullList]: anchor === "top" || anchor === "bottom",
 			})}
 			role="presentation"
-			onClick={toggleDrawer(anchor, false)}
-			onKeyDown={toggleDrawer(anchor, false)}
+			onClick={() => toggleDrawer(anchor, false)}
+			onKeyDown={() => toggleDrawer(anchor, false)}
 		>
 			<List>
 				<ListItem button>
@@ -93,6 +95,17 @@ export default function AppNavbar() {
 		},
 	}))(Button);
 
+	const accountState = useSelector(state => state.account);
+	const dispatch = useDispatch();
+
+	const Login = () => {
+		dispatch(login());
+	}
+
+	const Logout = () => {
+		dispatch(logout());
+	}
+
 	return (
 		<nav>
 			<NavLink id="logo" to="/" className="Link">
@@ -116,12 +129,21 @@ export default function AppNavbar() {
 				</li>
 			</ul>
 			<div id="nav-buttons">
-				<ColorButton size="small" id="sign-up" className={classes.margin}>
-					Sign Up
-				</ColorButton>
-				<ColorButton size="small" className={classes.margin}>
-					Login
-				</ColorButton>
+				{
+					accountState.loggedIn ? 
+					<ColorButton size="small" className={classes.margin} onClick={() => Logout()}>
+						Logout
+					</ColorButton>
+						:
+					<React.Fragment>
+						<ColorButton size="small" id="sign-up" className={classes.margin}>
+							Sign Up
+						</ColorButton>
+						<ColorButton size="small" className={classes.margin} onClick={() => Login()}>
+							Login
+						</ColorButton>
+					</React.Fragment>
+				}
 			</div>
 			<div id="menu">
 				{["right"].map((anchor) => (
