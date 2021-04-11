@@ -1,6 +1,7 @@
 nav {
     display: flex;
     justify-content: flex-start;
+    position: fixed;
     width: 100%;
     align-items: center;
     /* background-color: #3F3D56; */

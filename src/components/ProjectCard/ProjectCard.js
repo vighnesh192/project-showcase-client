@@ -6,8 +6,6 @@ import Box from "@material-ui/core/Box";
 import Tooltip from "@material-ui/core/Tooltip";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import CallMade from "@material-ui/icons/CallMade";
 
 import { Row, Column, Item } from "@mui-treasury/components/flex";
 import { useSizedIconButtonStyles } from "@mui-treasury/styles/iconButton/sized";
@@ -24,6 +22,7 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {
 		borderRadius: 8,
 		backgroundColor: "#495869",
+		position: "static",
 	},
 	overline: {
 		fontSize: 10,
@@ -67,7 +66,7 @@ const useCardHeaderStyles = makeStyles(() => ({
 
 const CardHeader = (props) => {
 	const styles = useCardHeaderStyles();
-	const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20 });
+	const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20, position: "static" });
 	return (
 		<Row {...props}>
 			<Item position={"middle"}>
@@ -78,13 +77,7 @@ const CardHeader = (props) => {
 					Similar to firebase theme
 				</Typography>
 			</Item>
-			<Item position={"right"} mr={-0.5}>
-				<StyledTooltip title={"See details"}>
-					<IconButton classes={iconBtnStyles}>
-						<CallMade />
-					</IconButton>
-				</StyledTooltip>
-			</Item>
+			
 		</Row>
 	);
 };
@@ -113,7 +106,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 	const gap = { xs: 1, sm: 1.5, lg: 2 };
 	return (
 		<Grid container spacing={components[width]}>
-			<Grid item sm={6}>
+			<Grid item xs={12} sm={6}>
 				<Column
 					className={styles.card}
 					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
@@ -126,7 +119,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 					<BasicProfile />
 				</Column>
 			</Grid>
-			<Grid item sm={6}>
+			<Grid item xs={12} sm={6}>
 				<Column
 					className={styles.card}
 					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
@@ -139,7 +132,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 					<BasicProfile />
 				</Column>
 			</Grid>
-			<Grid item sm={6}>
+			<Grid item xs={12} sm={6}>
 				<Column
 					className={styles.card}
 					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
@@ -152,7 +145,85 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 					<BasicProfile />
 				</Column>
 			</Grid>
-			<Grid item sm={6}>
+			<Grid item xs={12} sm={6}>
+				<Column
+					className={styles.card}
+					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+					gap={gap}
+				>
+					<CardHeader />
+					<Item>
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					</Item>
+					<BasicProfile />
+				</Column>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Column
+					className={styles.card}
+					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+					gap={gap}
+				>
+					<CardHeader />
+					<Item>
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					</Item>
+					<BasicProfile />
+				</Column>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Column
+					className={styles.card}
+					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+					gap={gap}
+				>
+					<CardHeader />
+					<Item>
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					</Item>
+					<BasicProfile />
+				</Column>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Column
+					className={styles.card}
+					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+					gap={gap}
+				>
+					<CardHeader />
+					<Item>
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					</Item>
+					<BasicProfile />
+				</Column>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Column
+					className={styles.card}
+					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+					gap={gap}
+				>
+					<CardHeader />
+					<Item>
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					</Item>
+					<BasicProfile />
+				</Column>
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<Column
+					className={styles.card}
+					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+					gap={gap}
+				>
+					<CardHeader />
+					<Item>
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					</Item>
+					<BasicProfile />
+				</Column>
+			</Grid>
+			<Grid item xs={12} sm={6}>
 				<Column
 					className={styles.card}
 					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
