@@ -7,15 +7,18 @@ const accountReducer = (state = initialState, action) => {
     switch(action.type) {
         case "LOGIN":
             state = {
-                user: undefined,
+                user: action.payload,
                 loggedIn: true
             }
+            console.log('Payload', action.payload)
+            localStorage.setItem('User', JSON.stringify(action.payload));
             return state;
         case "LOGOUT":
             state = {
                 user: undefined,
                 loggedIn: false
             }
+            localStorage.removeItem('User');
             return state;
         default:
             return state;

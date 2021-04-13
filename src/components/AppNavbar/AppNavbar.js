@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from "../../actions/accountActions";
+import { logout as logoutAction } from "../../actions/accountActions";
+import { logout as logoutService } from "../../services/authServices";
 import clsx from "clsx";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
 	drawerList: {
 		color: "#3F3D56",
 	},
+	a: {
+		textDecoration: "none"
+	}
 }));
 
 function ListItemLink(props) {
@@ -98,12 +102,12 @@ export default function AppNavbar() {
 	const accountState = useSelector(state => state.account);
 	const dispatch = useDispatch();
 
-	const Login = () => {
-		dispatch(login());
-	}
-
 	const Logout = () => {
-		dispatch(logout());
+		logoutService()
+			.then((data) => {
+				// @TODO Error handling using data.success
+				dispatch(logoutAction());
+			})
 	}
 
 	return (
@@ -130,17 +134,14 @@ export default function AppNavbar() {
 			</ul>
 			<div id="nav-buttons">
 				{
-					accountState.loggedIn ? 
-					<ColorButton size="small" className={classes.margin} onClick={() => Logout()}>
-						Logout
+					localStorage.getItem('User') ? 
+					<ColorButton className={classes.margin, classes.a} onClick={() => Logout()}>
+						<a style={{textDecoration: "none", color: "black"}}>Logout</a>
 					</ColorButton>
 						:
 					<React.Fragment>
-						<ColorButton size="small" id="sign-up" className={classes.margin}>
-							Sign Up
-						</ColorButton>
-						<ColorButton size="small" className={classes.margin} onClick={() => Login()}>
-							Login
+						<ColorButton className={classes.margin, classes.a}>
+							<a style={{textDecoration: "none", color: "black"}} href="http://localhost:8080/auth/google">Login</a>
 						</ColorButton>
 					</React.Fragment>
 				}
