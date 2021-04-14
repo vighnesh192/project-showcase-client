@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { logout as logoutAction } from "../../actions/accountActions";
 import { logout as logoutService } from "../../services/authServices";
+import { getProjects } from "../../services/projectService";
+import { setProjects } from "../../actions/projectActions";
 import clsx from "clsx";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -100,6 +102,7 @@ export default function AppNavbar() {
 	}))(Button);
 
 	const accountState = useSelector(state => state.account);
+	const projectState = useSelector(state => state.projects);
 	const dispatch = useDispatch();
 
 	const Logout = () => {
@@ -110,6 +113,13 @@ export default function AppNavbar() {
 			})
 	}
 
+	const handleProjectQuery = (query) => {
+		getProjects(query)
+			.then((data) => {
+				dispatch(setProjects(data));
+			})
+	}
+
 	return (
 		<nav>
 			<NavLink id="logo" to="/" className="Link">
@@ -117,17 +127,17 @@ export default function AppNavbar() {
 			</NavLink>
 			<ul>
 				<li>
-					<NavLink activeClassName="active" className="Link" to="/">
+					<NavLink onClick={() => handleProjectQuery('new')} activeClassName="active" className="Link" to="/">
 						New 
 					</NavLink>
 				</li>
 				<li>
-					<NavLink activeClassName="active" className="Link" to="/">
+					<NavLink onClick={() => handleProjectQuery('trending')} activeClassName="active" className="Link" to="/">
 						Trending
 					</NavLink>
 				</li>
 				<li>
-					<NavLink activeClassName="active" className="Link" to="/">
+					<NavLink onClick={() => handleProjectQuery('popular')} activeClassName="active" className="Link" to="/">
 						Popular
 					</NavLink>
 				</li>
