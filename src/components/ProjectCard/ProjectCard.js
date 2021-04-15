@@ -39,14 +39,15 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 
 const BasicProfile = (props) => {
 	const styles = useBasicProfileStyles();
+	console.log(props.profile)
 	return (
 		<Row {...props}>
 			<Item>
-				<Avatar className={styles.avatar}>S</Avatar>
+				<Avatar className={styles.avatar}>{props.profile ? props.profile.username[0].toUpperCase() : ""}</Avatar>
 			</Item>
 			<Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
 				<Typography className={styles.overline}>CREATOR</Typography>
-				<Typography className={styles.name}>siriwatknp</Typography>
+				<Typography className={styles.name}>{props.profile ? props.profile.username : ""}</Typography>
 			</Item>
 		</Row>
 	);
@@ -71,10 +72,10 @@ const CardHeader = (props) => {
 		<Row {...props}>
 			<Item position={"middle"}>
 				<Typography className={styles.title}>
-					<b>Firebase</b>
+					<b>{props.project.title}</b>
 				</Typography>
 				<Typography className={styles.subheader}>
-					Similar to firebase theme
+					{props.project.description}
 				</Typography>
 			</Item>
 			
@@ -95,148 +96,22 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const ProjectCard = React.memo(function ShowcaseCard(props) {
-	const components = {
-		xs: 1,
-		sm: 2,
-		md: 2,
-		lg: 2,
-	};
-	const { width } = props;
 	const styles = useStyles();
 	const gap = { xs: 1, sm: 1.5, lg: 2 };
 	return (
-		<Grid container spacing={components[width]}>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
-			<Grid item xs={12} sm={6}>
-				<Column
-					className={styles.card}
-					p={{ xs: 0.5, sm: 0.75, lg: 1 }}
-					gap={gap}
-				>
-					<CardHeader />
-					<Item>
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
-					</Item>
-					<BasicProfile />
-				</Column>
-			</Grid>
+		<Grid item xs={12} sm={6}>
+			<Column
+				className={styles.card}
+				p={{ xs: 0.5, sm: 0.75, lg: 1 }}
+				gap={gap}
+			>
+				<CardHeader project={props.project.proj}/>
+				<Item>
+					<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+				</Item>
+				<BasicProfile profile={props.project.user[0]}/>
+			</Column>
 		</Grid>
 	);
 });
-export default withWidth()(ProjectCard);
+export default ProjectCard;
