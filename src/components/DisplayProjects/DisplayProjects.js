@@ -15,9 +15,9 @@ const DisplayProjects = (props) => {
     
     const projectState = useSelector((state) => state.projects);
     console.log('DISPLAY PROJECTS', projectState);
-    const renderedProjects = projectState.projects.map(project => {
-        return <ProjectCard key={project.project} project={project} />
-    })
+    const renderedProjects = projectState.projects ? projectState.projects.map((project, index) => {
+        return <ProjectCard key={project.project} project={project} key={index}/>
+    }) : ""
 
     return (
         <div id="display-projects">

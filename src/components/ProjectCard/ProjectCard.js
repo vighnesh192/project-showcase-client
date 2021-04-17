@@ -39,11 +39,11 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 
 const BasicProfile = (props) => {
 	const styles = useBasicProfileStyles();
-	console.log(props.profile)
+	console.log(props)
 	return (
 		<Row {...props}>
 			<Item>
-				<Avatar className={styles.avatar}>{props.profile ? props.profile.username[0].toUpperCase() : ""}</Avatar>
+				<Avatar src={"https://lh3.googleusercontent.com/a-/AOh14GiBg4QH2jL9-L6mpNCyHNQ3ao0sq7R6QzAKhPpGqg=s96-c"} className={styles.avatar}>{props.profile ? props.profile.username[0].toUpperCase() : ""}</Avatar>
 			</Item>
 			<Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
 				<Typography className={styles.overline}>CREATOR</Typography>
@@ -68,14 +68,15 @@ const useCardHeaderStyles = makeStyles(() => ({
 const CardHeader = (props) => {
 	const styles = useCardHeaderStyles();
 	const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20, position: "static" });
+	console.log("HEADER:-", props)
 	return (
 		<Row {...props}>
 			<Item position={"middle"}>
 				<Typography className={styles.title}>
-					<b>{props.project.title}</b>
+					<b>{props.project ? props.project.title : ""}</b>
 				</Typography>
 				<Typography className={styles.subheader}>
-					{props.project.description}
+					{props.project ? props.project.description : ""}
 				</Typography>
 			</Item>
 			
@@ -109,7 +110,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 				<Item>
 					<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
 				</Item>
-				<BasicProfile profile={props.project.user[0]}/>
+				<BasicProfile profile={props.project.user ? props.project.user[0] : []}/>
 			</Column>
 		</Grid>
 	);
