@@ -1,6 +1,6 @@
 import React from "react";
+import { useSelector } from 'react-redux';
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import withWidth from '@material-ui/core/withWidth';
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -39,7 +39,7 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 
 const BasicProfile = (props) => {
 	const styles = useBasicProfileStyles();
-	console.log(props)
+	console.log('PROFILE:-', props);
 	return (
 		<Row {...props}>
 			<Item>
@@ -68,7 +68,7 @@ const useCardHeaderStyles = makeStyles(() => ({
 const CardHeader = (props) => {
 	const styles = useCardHeaderStyles();
 	const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20, position: "static" });
-	console.log("HEADER:-", props)
+	console.log("HEADER:-", props);
 	return (
 		<Row {...props}>
 			<Item position={"middle"}>
@@ -99,6 +99,9 @@ const useStyles = makeStyles(() => ({
 export const ProjectCard = React.memo(function ShowcaseCard(props) {
 	const styles = useStyles();
 	const gap = { xs: 1, sm: 1.5, lg: 2 };
+	const projectsQueryType = useSelector((state) => state.projects.queryType);
+	console.log('QUERY STATE:-', projectsQueryType);
+	console.log('PROJECT CARD:-', props.project);
 	return (
 		<Grid item xs={12} sm={6}>
 			<Column
@@ -106,7 +109,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 				p={{ xs: 0.5, sm: 0.75, lg: 1 }}
 				gap={gap}
 			>
-				<CardHeader project={props.project.proj}/>
+				<CardHeader project={projectsQueryType !== "new" ? props.project.proj : props.project}/>
 				<Item>
 					<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
 				</Item>

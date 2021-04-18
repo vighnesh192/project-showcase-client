@@ -116,7 +116,7 @@ export default function AppNavbar() {
 	const handleProjectQuery = (query) => {
 		getProjects(query)
 			.then((data) => {
-				dispatch(setProjects(data));
+				dispatch(setProjects(data, query));
 			})
 	}
 

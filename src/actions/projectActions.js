@@ -1,6 +1,9 @@
-export const setProjects = (projects) => {
+export const setProjects = (projects, query) => {
     return {
         type: 'SET',
-        payload: projects
+        payload: {
+            projects,
+            queryType: query
+        }
     }
 }
