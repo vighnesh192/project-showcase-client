@@ -1,22 +1,12 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import Tooltip from "@material-ui/core/Tooltip";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
 import { Row, Column, Item } from "@mui-treasury/components/flex";
-import { useSizedIconButtonStyles } from "@mui-treasury/styles/iconButton/sized";
-
-const StyledTooltip = withStyles({
-	tooltip: {
-		marginTop: "0.2rem",
-		backgroundColor: "rgba(0,0,0,0.72)",
-		color: "#fff",
-	},
-})(Tooltip);
 
 const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {
@@ -43,7 +33,7 @@ const BasicProfile = (props) => {
 	return (
 		<Row {...props}>
 			<Item>
-				<Avatar src={"https://lh3.googleusercontent.com/a-/AOh14GiBg4QH2jL9-L6mpNCyHNQ3ao0sq7R6QzAKhPpGqg=s96-c"} className={styles.avatar}>{props.profile ? props.profile.username[0].toUpperCase() : ""}</Avatar>
+				<Avatar src={props.profile ? props.profile.profilePic.url : ''} className={styles.avatar}>{props.profile ? props.profile.username[0].toUpperCase() : ""}</Avatar>
 			</Item>
 			<Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
 				<Typography className={styles.overline}>CREATOR</Typography>
@@ -67,7 +57,6 @@ const useCardHeaderStyles = makeStyles(() => ({
 
 const CardHeader = (props) => {
 	const styles = useCardHeaderStyles();
-	const iconBtnStyles = useSizedIconButtonStyles({ padding: 8, childSize: 20, position: "static" });
 	console.log("HEADER:-", props);
 	return (
 		<Row {...props}>

@@ -17,6 +17,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { NavLink } from "react-router-dom";
 import "./AppNavbar.css"
 import { grey } from "@material-ui/core/colors";
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -50,6 +55,9 @@ export default function AppNavbar() {
 		bottom: false,
 		right: false,
 	});
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (
@@ -120,6 +128,24 @@ export default function AppNavbar() {
 			})
 	}
 
+	const handleMenu = (event) => {
+	setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+	setAnchorEl(null);
+	};
+
+	const useBasicProfileStyles = makeStyles(({ palette }) => ({
+		avatar: {
+			borderRadius: 10,
+			backgroundColor: "#495869",
+			position: "static",
+		}
+	}));
+
+	const styles = useBasicProfileStyles();
+
 	return (
 		<nav>
 			<NavLink id="logo" to="/" className="Link">
@@ -144,16 +170,14 @@ export default function AppNavbar() {
 			</ul>
 			<div id="nav-buttons">
 				{
-					localStorage.getItem('User') ? 
-					<ColorButton className={classes.margin, classes.a} onClick={() => Logout()}>
-						<a style={{textDecoration: "none", color: "black"}}>Logout</a>
-					</ColorButton>
-						:
+					!localStorage.getItem('User') ? 
 					<React.Fragment>
 						<ColorButton className={classes.margin, classes.a}>
 							<a style={{textDecoration: "none", color: "black"}} href="http://localhost:8080/auth/google">Login</a>
 						</ColorButton>
 					</React.Fragment>
+						:
+					<React.Fragment></React.Fragment>
 				}
 			</div>
 			<div id="menu">
@@ -178,6 +202,74 @@ export default function AppNavbar() {
 					</React.Fragment>
 				))}
 			</div>
+			{localStorage.getItem('User') ? 
+				<Toolbar>
+					<div>
+						{JSON.parse(localStorage.getItem('User')).profilePic.url ? 
+							<React.Fragment>
+								<IconButton
+									aria-label="account of current user"
+									aria-controls="menu-appbar"
+									aria-haspopup="true" 
+									onClick={handleMenu}
+								>
+									<Avatar src={JSON.parse(localStorage.getItem('User')).profilePic.url} />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+									}}
+									keepMounted
+									transformOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+									}}
+									open={open}
+									onClose={handleClose}
+								>
+									<MenuItem onClick={handleClose}>Profile</MenuItem>
+									<MenuItem onClick={() => Logout()}>Logout</MenuItem>
+								</Menu>
+							</React.Fragment>
+							:
+							<React.Fragment>
+								<IconButton
+									aria-label="account of current user"
+									aria-controls="menu-appbar"
+									aria-haspopup="true"
+									onClick={handleMenu}
+									color="inherit"
+								>
+									<AccountCircle />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+									}}
+									keepMounted
+									transformOrigin={{
+									vertical: 'top',
+									horizontal: 'right',
+									}}
+									open={open}
+									onClose={handleClose}
+								>
+									<MenuItem onClick={handleClose}>Profile</MenuItem>
+									<MenuItem onClick={() => Logout()}>Logout</MenuItem>
+								</Menu>
+							</React.Fragment>
+						}
+					</div>
+				</Toolbar>
+				:
+				<React.Fragment></React.Fragment>
+			}
 		</nav>
 	);
 }

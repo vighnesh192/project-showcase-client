@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainPage = () => {
-  const accountState = useSelector(state => state.projects);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const MainPage = () => {
 		return () => {
 		  mounted = false;
 		}
-  }, []);
+  });
 
 	const classes = useStyles();
 
