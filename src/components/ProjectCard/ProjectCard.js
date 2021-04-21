@@ -33,11 +33,11 @@ const BasicProfile = (props) => {
 	return (
 		<Row {...props}>
 			<Item>
-				<Avatar src={props.profile ? props.profile.profilePic.url : ''} className={styles.avatar}>{props.profile ? props.profile.username[0].toUpperCase() : ""}</Avatar>
+				<Avatar src={props.profile ? props.profile.profilePic.url : ''} className={styles.avatar}>{props.profile ? props.profile.username ? props.profile.username[0].toUpperCase() : props.profile.first_name[0].toUpperCase() : ""}</Avatar>
 			</Item>
 			<Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
 				<Typography className={styles.overline}>CREATOR</Typography>
-				<Typography className={styles.name}>{props.profile ? props.profile.username : ""}</Typography>
+				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
 			</Item>
 		</Row>
 	);
