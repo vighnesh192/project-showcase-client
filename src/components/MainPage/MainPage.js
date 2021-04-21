@@ -6,6 +6,7 @@ import DisplayProjects from "../DisplayProjects/DisplayProjects";
 import "./MainPage.css";
 import { getProjects } from "../../services/projectService";
 import { setProjects } from "../../actions/projectActions";
+import AlignItemsList from "../TopCreators/TopCreators";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -39,9 +40,12 @@ const MainPage = () => {
 
 	return (
 		<div className={classes.root} id="main-page">
-			<Grid spacing={3}>
-				<Grid item s={12} md={8}>
+			<Grid container spacing={3}>
+				<Grid item  md={8}>
 					<DisplayProjects />
+				</Grid>
+				<Grid item  md={4}>
+					<AlignItemsList />
 				</Grid>
 			</Grid>
 		</div>
