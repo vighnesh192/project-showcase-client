@@ -13,6 +13,7 @@ nav {
     box-shadow: -1px 0.15px 0px 0px rgba(0,0,0,0.75);
     -webkit-box-shadow: -1px 0.15px 0px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 0.15px 0px 0px rgba(0,0,0,0.75);
+    z-index: 100;
 }
 
 nav ul {
