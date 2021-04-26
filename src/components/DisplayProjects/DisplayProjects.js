@@ -15,6 +15,8 @@ const DisplayProjects = (props) => {
     
     const projectState = useSelector((state) => state.projects);
     console.log('DISPLAY PROJECTS', projectState);
+
+    // @Doubt   Why does this not work if written directly in return()
     const renderedProjects = projectState.projects ? projectState.projects.map((project, index) => {
         return <ProjectCard key={project.project} project={project} key={index}/>
     }) : ""

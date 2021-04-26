@@ -5,8 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import DisplayProjects from "../DisplayProjects/DisplayProjects";
 import "./MainPage.css";
 import { getProjects } from "../../services/projectService";
+import { getTopCreators } from "../../services/userService";
 import { setProjects } from "../../actions/projectActions";
-import AlignItemsList from "../TopCreators/TopCreators";
+import { setTopCreators } from "../../actions/userActions";
+import TopCreatorsList from "../TopCreators/TopCreatorsList";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,10 +28,14 @@ const MainPage = () => {
     let mounted = true;
 		if(mounted) {
 		  getProjects('popular')
-        .then(data => {
-          console.log(data);
-          dispatch(setProjects(data))
-        });
+        	.then(data => {
+				dispatch(setProjects(data))
+        	}
+		);
+		getTopCreators()
+			.then(data => {
+				dispatch(setTopCreators(data));
+			})
 		}
 		return () => {
 		  mounted = false;
@@ -45,7 +51,7 @@ const MainPage = () => {
 					<DisplayProjects />
 				</Grid>
 				<Grid item  md={4}>
-					<AlignItemsList />
+					<TopCreatorsList />
 				</Grid>
 			</Grid>
 		</div>
