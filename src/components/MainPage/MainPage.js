@@ -27,20 +27,20 @@ const MainPage = () => {
   useEffect(() => {
     let mounted = true;
 		if(mounted) {
-		  getProjects('popular')
-        	.then(data => {
-				dispatch(setProjects(data))
-        	}
+			getProjects('popular')
+				.then(data => {
+					dispatch(setProjects(data))
+				}
 		);
-		getTopCreators()
-			.then(data => {
-				dispatch(setTopCreators(data));
-			})
+			getTopCreators()
+				.then(data => {
+					dispatch(setTopCreators(data));
+				})
 		}
 		return () => {
 		  mounted = false;
 		}
-  });
+  }, []);
 
 	const classes = useStyles();
 
