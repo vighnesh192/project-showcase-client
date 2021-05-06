@@ -5,8 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import { Row, Column, Item } from "@mui-treasury/components/flex";
+import { IconButton } from "@material-ui/core";
 
 const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {
@@ -25,6 +27,10 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 		fontWeight: 500,
 		color: "#495869",
 	},
+	upvoteButton: {
+		borderRadius: "20%",
+		borderColor: "#E7EDF3"
+	}
 }));
 
 const BasicProfile = (props) => {
@@ -38,6 +44,12 @@ const BasicProfile = (props) => {
 			<Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
 				<Typography className={styles.overline}>CREATOR</Typography>
 				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
+			</Item>
+			<Item position={"right"}>
+				<IconButton className={styles.upvoteButton}>
+					<ArrowDropUpIcon />
+					<Typography>{props.project.count}</Typography>
+				</IconButton>
 			</Item>
 		</Row>
 	);
@@ -102,7 +114,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 				<Item>
 					<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
 				</Item>
-				<BasicProfile profile={props.project.user ? props.project.user[0] : []}/>
+				<BasicProfile profile={props.project.user ? props.project.user[0] : []} project={props.project}/>
 			</Column>
 		</Grid>
 	);
