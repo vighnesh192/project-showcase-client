@@ -8,7 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import { Row, Column, Item } from "@mui-treasury/components/flex";
-import { IconButton } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import axios from "axios";
 
 const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {
@@ -28,14 +29,22 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 		color: "#495869",
 	},
 	upvoteButton: {
-		borderRadius: "20%",
-		borderColor: "#E7EDF3"
+		borderRadius: "10%",
+		borderColor: "#E7EDF3",
+		color: "#8D9CAD"
 	}
 }));
 
 const BasicProfile = (props) => {
 	const styles = useBasicProfileStyles();
 	console.log('PROFILE:-', props);
+
+	const handleUpvoteClick = (projectId) => {
+		axios.post(`/projects/vote`, { project: projectId })
+			.then(res => {
+				console.log(res);
+			})
+	}
 	return (
 		<Row {...props}>
 			<Item>
@@ -46,10 +55,10 @@ const BasicProfile = (props) => {
 				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
 			</Item>
 			<Item position={"right"}>
-				<IconButton className={styles.upvoteButton}>
+				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.project.project) }>
 					<ArrowDropUpIcon />
 					<Typography>{props.project.count}</Typography>
-				</IconButton>
+				</Button>
 			</Item>
 		</Row>
 	);
