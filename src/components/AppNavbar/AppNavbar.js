@@ -205,7 +205,7 @@ export default function AppNavbar() {
 			{localStorage.getItem('User') ? 
 				<Toolbar>
 					<div>
-						{JSON.parse(localStorage.getItem('User')).profilePic.url ? 
+						{JSON.parse(localStorage.getItem('User')).profilePic ? 
 							<React.Fragment>
 								<IconButton
 									aria-label="account of current user"
