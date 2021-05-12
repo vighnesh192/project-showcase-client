@@ -19,11 +19,11 @@ Fork this repo to your GitHub account
 ### 2. Clone repo
 Clone the forked repo to your local machine
 ```bash
-git clone https://github.com/<YOUR-GITHUB-USERNAME>/project_showcase_server.git
+git clone https://github.com/<YOUR-GITHUB-USERNAME>/project-showcase-client.git
 ```
 Navigate to project directory
 ```bash
-cd project_showcase_server
+cd project-showcase-client
 ```
 
 ### 3. Install Dependencies
@@ -37,16 +37,16 @@ npm install
 0. You will have to set up remote repositories for getting latest changes from original repository
 1. Specify a new remote upstream repository that will be synced with the fork using follwoing command :
  ```bash
-$ git remote add upstream https://github.com/vighnesh192/project_showcase_server.git
+$ git remote add upstream https://github.com/vighnesh192/project-showcase-client.git
 ```
 
 2. Verify the new upstream repository you've specified for your fork using `git remote -v`
 ```console
 
-origin  https://github.com/<your-user-name>/project_showcase_server.git (fetch)
-origin  https://github.com/<your-user-name>/project_showcase_server.git (push)
-upstream        https://github.com/vighnesh192/project_showcase_server.git (fetch)
-upstream        https://github.com/vighnesh192/project_showcase_server.git (push)
+origin  https://github.com/<your-user-name>/project-showcase-client.git (fetch)
+origin  https://github.com/<your-user-name>/project-showcase-client.git (push)
+upstream        https://github.com/vighnesh192/project-showcase-client.git (fetch)
+upstream        https://github.com/vighnesh192/project-showcase-client.git (push)
 
 ```
 
