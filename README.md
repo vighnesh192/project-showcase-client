@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+<h1 align="center">
+    Project Showcase Client 
+</h1>
+<p align="center">Frontend for Project Showcase (a platform for people to showcase their projects and build a project-centric profile)</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<a id="setup-run"></a>
+## 🔨 Setup and Run
 
-## Available Scripts
+<a id="setup-repo"></a>
+### Setup local repo
+Let's setup the server on your local machine.
 
-In the project directory, you can run:
+### 0. Prerequisites
+* Make sure you have [Node.js](http://nodejs.org) installed on your machine.
 
-### `npm start`
+### 1. Fork repo
+Fork this repo to your GitHub account
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 2. Clone repo
+Clone the forked repo to your local machine
+```bash
+git clone https://github.com/<YOUR-GITHUB-USERNAME>/project_showcase_server.git
+```
+Navigate to project directory
+```bash
+cd project_showcase_server
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 3. Install Dependencies
+```bash
+npm install
+```
 
-### `npm test`
+<a id="setup-remote"></a>
+### 4. 📡 Setup remote
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+0. You will have to set up remote repositories for getting latest changes from original repository
+1. Specify a new remote upstream repository that will be synced with the fork using follwoing command :
+ ```bash
+$ git remote add upstream https://github.com/vighnesh192/project_showcase_server.git
+```
 
-### `npm run build`
+2. Verify the new upstream repository you've specified for your fork using `git remote -v`
+```console
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+origin  https://github.com/<your-user-name>/project_showcase_server.git (fetch)
+origin  https://github.com/<your-user-name>/project_showcase_server.git (push)
+upstream        https://github.com/vighnesh192/project_showcase_server.git (fetch)
+upstream        https://github.com/vighnesh192/project_showcase_server.git (push)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<a id="run-app"></a>
+### 5. Running the app
 
-### `npm run eject`
+    ```bash
+    # development
+    $ npm start
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### ✨ Contributors 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<a href="https://github.com/vighnesh192/project-showcase-client/graphs/contributors"> 
+     <img src="https://contrib.rocks/image?repo=vighnesh192/project-showcase-client" />
+</a>
