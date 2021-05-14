@@ -1,15 +1,17 @@
 import React from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-
 import { Row, Column, Item } from "@mui-treasury/components/flex";
 import { Button } from "@material-ui/core";
 import axios from "axios";
+
+import { getProjects } from "../../services/projectService";
+import { setProjects } from "../../actions/projectActions";
 
 const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {
@@ -38,13 +40,21 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 const BasicProfile = (props) => {
 	const styles = useBasicProfileStyles();
 	console.log('PROFILE:-', props);
+	const projectState = useSelector((state) => state.projects);
+	const dispatch = useDispatch();
 
 	const handleUpvoteClick = (projectId) => {
 		axios.post(`/projects/vote`, { project: projectId })
-			.then(res => {
+			.then((res) => {
 				console.log(res);
+				getProjects(projectState.queryType ? projectState.queryType : 'popular')
+					.then(data => {
+						console.log('PROJECT STATE AFTER UPVOTE:-', data);
+						dispatch(setProjects(data));
+					});
 			})
 	}
+	
 	return (
 		<Row {...props}>
 			<Item>
