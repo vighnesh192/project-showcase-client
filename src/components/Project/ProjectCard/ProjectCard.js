@@ -10,8 +10,8 @@ import { Row, Column, Item } from "@mui-treasury/components/flex";
 import { Button } from "@material-ui/core";
 import axios from "axios";
 
-import { getProjects } from "../../services/projectService";
-import { setProjects } from "../../actions/projectActions";
+import { getProjects } from "../../../services/projectService";
+import { setProjects } from "../../../actions/projectActions";
 
 const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {

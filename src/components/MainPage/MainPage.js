@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import DisplayProjects from "../DisplayProjects/DisplayProjects";
+import DisplayProjects from "../Project/DisplayProjects/DisplayProjects";
 import "./MainPage.css";
 import { getProjects } from "../../services/projectService";
 import { getTopCreators } from "../../services/userService";
