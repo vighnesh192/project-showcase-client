@@ -177,7 +177,13 @@ export default function AppNavbar() {
 						</ColorButton>
 					</React.Fragment>
 						:
-					<React.Fragment></React.Fragment>
+					<React.Fragment>
+						<NavLink activeClassName="active" className="Link" to="/post-project">
+							<ColorButton className={classes.margin, classes.a}>
+								<a style={{textDecoration: "none", color: "black"}}>Post Project</a>
+							</ColorButton>
+						</NavLink>
+					</React.Fragment>
 				}
 			</div>
 			<div id="menu">

@@ -5,6 +5,7 @@ import AppNavbar from "./components/AppNavbar/AppNavbar";
 import MainPage from "./components/MainPage/MainPage";
 import { checkLogin } from "./services/authServices";
 import { login } from "./actions/accountActions";
+import PostProject from "./components/Project/PostProject/PostProject";
 
 function App() {
 	const accountState = useSelector(state => state.account);
@@ -31,6 +32,7 @@ function App() {
 				<AppNavbar />
 				<Switch>
 					<Route exact path="/" component={MainPage} />
+					<Route exact path="/post-project" component={PostProject} />
 				</Switch>
 			</div>
 		</Router>

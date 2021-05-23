@@ -8,7 +8,7 @@ import { getProjects } from "../../services/projectService";
 import { getTopCreators } from "../../services/userService";
 import { setProjects } from "../../actions/projectActions";
 import { setTopCreators } from "../../actions/userActions";
-import TopCreatorsList from "../TopCreators/TopCreatorsList";
+import TopCreatorsList from "../User/TopCreators/TopCreatorsList";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
