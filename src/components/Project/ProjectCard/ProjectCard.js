@@ -67,7 +67,7 @@ const BasicProfile = (props) => {
 			<Item position={"right"}>
 				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.project.project) }>
 					<ArrowDropUpIcon />
-					<Typography>{props.project.count ? props.project.count : props.project.allVotes.length}</Typography>
+					<Typography>{props.project.allVotes.length}</Typography>
 				</Button>
 			</Item>
 		</Row>
