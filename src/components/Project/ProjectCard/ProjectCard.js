@@ -114,14 +114,33 @@ const useStyles = makeStyles(() => ({
 			borderColor: "#5B9FED",
 		},
 	},
+	image: {
+		height: "100%",
+		width: "100%",
+		borderRadius: 8
+	},
+	noImage: {
+		display: 'none'
+	}
 }));
+
+const imageError = (id) => {
+	console.log(id)
+	const imgId = `project-image-${id}`;
+	const image = document.getElementById(imgId);
+	console.log('IMAGE' ,image)
+	image.style.display = 'none' ;
+}
 
 export const ProjectCard = React.memo(function ShowcaseCard(props) {
 	const styles = useStyles();
 	const gap = { xs: 1, sm: 1.5, lg: 2 };
 	const projectsQueryType = useSelector((state) => state.projects.queryType);
-	console.log('QUERY STATE:-', projectsQueryType);
+	// console.log('QUERY STATE:-', projectsQueryType);
 	console.log('PROJECT CARD:-', props.project);
+	// props.project.image != null ?
+	// console.log(`IMAGE URL:- /${props.project.image.url}`) :
+	// console.log('IMAGE URL:- null')
 	return (
 		<Grid item xs={12} sm={6}>
 			<Column
@@ -131,7 +150,22 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 			>
 				<CardHeader project={projectsQueryType !== "new" ? props.project.proj : props.project}/>
 				<Item>
-					<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8} />
+					{ 
+						props.project.image == null 
+						? 
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}/>
+						: 
+						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}>
+							{
+								projectsQueryType !== "new" ? 
+								<img id={`project-image-${props.project.project}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}}></img> 
+								:
+								<img id={`project-image-${props.project.id}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}}></img> 
+							
+							}
+							
+						</Box>
+					}
 				</Item>
 				<BasicProfile profile={props.project.user ? props.project.user[0] : []} project={props.project}/>
 			</Column>
