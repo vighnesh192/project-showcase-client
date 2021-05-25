@@ -50,7 +50,7 @@ const BasicProfile = (props) => {
 				getProjects(projectState.queryType ? projectState.queryType : 'popular')
 					.then(data => {
 						console.log('PROJECT STATE AFTER UPVOTE:-', data);
-						dispatch(setProjects(data));
+						dispatch(setProjects(data, props.projectsQueryType));
 					});
 			})
 	}
@@ -65,7 +65,7 @@ const BasicProfile = (props) => {
 				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
 			</Item>
 			<Item position={"right"}>
-				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.project.project) }>
+				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.projectsQueryType != 'new' ? props.project.project : props.project.id) }>
 					<ArrowDropUpIcon />
 					<Typography>{props.project.allVotes.length}</Typography>
 				</Button>
@@ -167,7 +167,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 						</Box>
 					}
 				</Item>
-				<BasicProfile profile={props.project.user ? props.project.user[0] : []} project={props.project}/>
+				<BasicProfile profile={props.project.user ? props.project.user[0] : []} project={props.project} projectsQueryType={projectsQueryType}/>
 			</Column>
 		</Grid>
 	);
