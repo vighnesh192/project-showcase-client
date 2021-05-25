@@ -12,6 +12,8 @@ import axios from "axios";
 
 import { getProjects } from "../../../services/projectService";
 import { setProjects } from "../../../actions/projectActions";
+import { getTopCreators } from "../../../services/userService";
+import { setTopCreators } from "../../../actions/userActions";
 
 const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	avatar: {
@@ -52,6 +54,11 @@ const BasicProfile = (props) => {
 						console.log('PROJECT STATE AFTER UPVOTE:-', data);
 						dispatch(setProjects(data, props.projectsQueryType));
 					});
+
+				getTopCreators()
+					.then(data => {
+						dispatch(setTopCreators(data));
+					})
 			})
 	}
 	
