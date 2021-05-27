@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout as logoutAction } from "../../actions/accountActions";
 import { logout as logoutService } from "../../services/authServices";
 import { getProjects } from "../../services/projectService";
@@ -109,8 +109,6 @@ export default function AppNavbar() {
 		},
 	}))(Button);
 
-	const accountState = useSelector(state => state.account);
-	const projectState = useSelector(state => state.projects);
 	const dispatch = useDispatch();
 
 	const Logout = () => {
@@ -135,16 +133,6 @@ export default function AppNavbar() {
 	const handleClose = () => {
 	setAnchorEl(null);
 	};
-
-	const useBasicProfileStyles = makeStyles(({ palette }) => ({
-		avatar: {
-			borderRadius: 10,
-			backgroundColor: "#495869",
-			position: "static",
-		}
-	}));
-
-	const styles = useBasicProfileStyles();
 
 	return (
 		<nav>

@@ -72,7 +72,7 @@ const BasicProfile = (props) => {
 				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
 			</Item>
 			<Item position={"right"}>
-				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.projectsQueryType != 'new' ? props.project.project : props.project.id) }>
+				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.projectsQueryType !== 'new' ? props.project.project : props.project.id) }>
 					<ArrowDropUpIcon />
 					<Typography>{props.project.allVotes.length}</Typography>
 				</Button>
@@ -165,9 +165,9 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}>
 							{
 								projectsQueryType !== "new" ? 
-								<img id={`project-image-${props.project.project}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}}></img> 
+								<img id={`project-image-${props.project.project}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}} alt=""></img> 
 								:
-								<img id={`project-image-${props.project.id}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}}></img> 
+								<img id={`project-image-${props.project.id}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 
 							
 							}
 							

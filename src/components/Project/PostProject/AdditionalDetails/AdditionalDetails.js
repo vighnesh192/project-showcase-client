@@ -38,10 +38,6 @@ const useStyles = makeStyles((theme) => ({
   
 
 function AdditionalDetails(props) {
-    const nextStep = (e) => {
-        e.preventDefault();
-        props.nextStep();
-    }
     const prevStep = (e) => {
         e.preventDefault();
         props.prevStep();

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -103,7 +103,7 @@ function PrimaryDetails (props) {
                 </Button>
               </label>
               <br /> 
-              <img id="img-output" className={classes.imgPreview} src={image}/>
+              <img id="img-output" className={classes.imgPreview} src={image} alt=""/>
             </Grid>
             <Button
               fullWidth

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AppNavbar from "./components/AppNavbar/AppNavbar";
 import MainPage from "./components/MainPage/MainPage";
 import { checkLogin } from "./services/authServices";
@@ -8,7 +8,6 @@ import { login } from "./actions/accountActions";
 import PostProject from "./components/Project/PostProject/PostProject";
 
 function App() {
-	const accountState = useSelector(state => state.account);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
