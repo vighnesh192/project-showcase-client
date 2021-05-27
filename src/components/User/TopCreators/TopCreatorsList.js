@@ -15,12 +15,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
+    borderRadius: 10
   },
   inline: {
     display: 'inline',
   },
   header: {
     fontWeight: 'bold',
+    borderRadius: 10
   },
   divider: {
     marginBottom: '0.5rem'
