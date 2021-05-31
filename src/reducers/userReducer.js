@@ -5,7 +5,6 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'setTopCreators':
-            console.log('ACTION', action);
             state = {
                 users: action.payload.data
             }

@@ -9,9 +9,10 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { Row, Column, Item } from "@mui-treasury/components/flex";
 import { Button } from "@material-ui/core";
 import axios from "axios";
+import { withRouter } from 'react-router-dom';
 
-import { getProjects } from "../../../services/projectService";
-import { setProjects } from "../../../actions/projectActions";
+import { getProjectDetails, getProjects } from "../../../services/projectService";
+import { setProjectDetails, setProjects } from "../../../actions/projectActions";
 import { getTopCreators } from "../../../services/userService";
 import { setTopCreators } from "../../../actions/userActions";
 
@@ -41,17 +42,14 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 
 const BasicProfile = (props) => {
 	const styles = useBasicProfileStyles();
-	console.log('PROFILE:-', props);
 	const projectState = useSelector((state) => state.projects);
 	const dispatch = useDispatch();
 
 	const handleUpvoteClick = (projectId) => {
 		axios.post(`/projects/vote`, { project: projectId })
 			.then((res) => {
-				console.log(res);
 				getProjects(projectState.queryType ? projectState.queryType : 'popular')
 					.then(data => {
-						console.log('PROJECT STATE AFTER UPVOTE:-', data);
 						dispatch(setProjects(data, props.projectsQueryType));
 					});
 
@@ -95,7 +93,6 @@ const useCardHeaderStyles = makeStyles(() => ({
 
 const CardHeader = (props) => {
 	const styles = useCardHeaderStyles();
-	console.log("HEADER:-", props);
 	return (
 		<Row {...props}>
 			<Item position={"middle"}>
@@ -132,24 +129,33 @@ const useStyles = makeStyles(() => ({
 }));
 
 const imageError = (id) => {
-	console.log(id)
 	const imgId = `project-image-${id}`;
 	const image = document.getElementById(imgId);
-	console.log('IMAGE' ,image)
 	image.style.display = 'none' ;
 }
 
 export const ProjectCard = React.memo(function ShowcaseCard(props) {
 	const styles = useStyles();
+	const dispatch = useDispatch();
 	const gap = { xs: 1, sm: 1.5, lg: 2 };
 	const projectsQueryType = useSelector((state) => state.projects.queryType);
-	// console.log('QUERY STATE:-', projectsQueryType);
-	console.log('PROJECT CARD:-', props.project);
-	// props.project.image != null ?
-	// console.log(`IMAGE URL:- /${props.project.image.url}`) :
-	// console.log('IMAGE URL:- null')
+	const allProjects = useSelector((state) => state.projects.projects);
+
+	const handleProjectCardClick = (id) => {
+        getProjectDetails(id)
+            .then((data) => {
+				dispatch(setProjectDetails(allProjects, projectsQueryType, data));
+				props.history.push(`/project/${id}`);
+            })
+    }
+
 	return (
-		<Grid item xs={12} sm={6}>
+		<Grid 
+			onClick={() => handleProjectCardClick(projectsQueryType !== 'new' ? props.project.project : props.project.id)} 
+			href={`/project/${projectsQueryType !== 'new' ? props.project.project : props.project.id}`} 
+			style={{cursor : 'pointer'}}
+			item xs={12} sm={6}
+		>
 			<Column
 				className={styles.card}
 				p={{ xs: 0.5, sm: 0.75, lg: 1 }}
@@ -169,8 +175,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 								:
 								<img id={`project-image-${props.project.id}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 
 							
-							}
-							
+							}	
 						</Box>
 					}
 				</Item>
@@ -179,4 +184,4 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 		</Grid>
 	);
 });
-export default ProjectCard;
+export default withRouter(ProjectCard);

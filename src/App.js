@@ -6,6 +6,7 @@ import MainPage from "./components/MainPage/MainPage";
 import { checkLogin } from "./services/authServices";
 import { login } from "./actions/accountActions";
 import PostProject from "./components/Project/PostProject/PostProject";
+import ProjectDetails from "./components/Project/ProjectDetails/ProjectDetails";
 
 function App() {
 	const dispatch = useDispatch();
@@ -31,7 +32,8 @@ function App() {
 				<AppNavbar />
 				<Switch>
 					<Route exact path="/" component={MainPage} />
-					<Route exact path="/post-project" component={PostProject} />
+					<Route exact path="/project/post-project" component={PostProject} />
+					<Route exact path="/project/:projectId" component={ProjectDetails} />
 				</Switch>
 			</div>
 		</Router>

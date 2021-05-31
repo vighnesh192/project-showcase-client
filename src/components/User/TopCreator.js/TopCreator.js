@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
 const TopCreator = (props) => {
   const classes = useStyles();
 
-  console.log('TOP CREATORS FROM TOPcREATOR:-', props);
-
   return (
     <ListItem alignItems="flex-start">
         <ListItemAvatar>

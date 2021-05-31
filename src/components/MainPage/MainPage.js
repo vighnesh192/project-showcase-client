@@ -29,9 +29,9 @@ const MainPage = () => {
 		if(mounted) {
 			getProjects('popular')
 				.then(data => {
-					dispatch(setProjects(data))
-				}
-		);
+					dispatch(setProjects(data, 'popular'))
+				});
+				
 			getTopCreators()
 				.then(data => {
 					dispatch(setTopCreators(data));

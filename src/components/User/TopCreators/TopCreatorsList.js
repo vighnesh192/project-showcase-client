@@ -29,8 +29,6 @@ const TopCreatorsList = () => {
 
   const topCreators = useSelector(state => state.users);
 
-  console.log('TOP CREATORS:-', topCreators);
-
   // @Doubt   Why does this not work if written directly in return()
   const renderUsers = topCreators.users ? topCreators.users.map((user, index) => {
     return <TopCreator key={index} user={user}/>

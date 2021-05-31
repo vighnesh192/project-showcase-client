@@ -10,7 +10,6 @@ const accountReducer = (state = initialState, action) => {
                 user: action.payload,
                 loggedIn: true
             }
-            console.log('Payload', action.payload)
             localStorage.setItem('User', JSON.stringify(action.payload));
             return state;
         case "LOGOUT":

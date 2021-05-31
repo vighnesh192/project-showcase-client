@@ -44,7 +44,6 @@ function PrimaryDetails (props) {
 
     const { tagline, description, title } = props.userDetails;
     const { image } = props.imageDetails;
-    console.log('image state:-', image)
   
     return (
       <Container component="main" maxWidth="xs">

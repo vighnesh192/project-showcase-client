@@ -5,16 +5,21 @@ const initialState = {
 };
 
 const projectReducer = (state = initialState, action) => {
-    const { projects, queryType, projectDetails } = action.payload;
     switch (action.type) {
         case 'SET':
-            state = { projects, queryType };
-            console.log('PROJECT STATE' ,state);
+            state = { 
+                projects: action.payload.projects,
+                queryType: action.payload.queryType 
+            };
             return state;
         
         case 'SET_PROJECT_DETAILS':
-            state = { projects, queryType, projectDetails };
-            console.log('PROJECT_DETAILS_REDUCER:-', state);
+            console.log('SET_PROJECT_DETAILS ACTION', action)
+            state = { 
+                projects: action.payload.projects,
+                queryType: action.payload.queryType,
+                projectDetails: action.payload.projectDetails
+            };
             return state;
 
         default:
