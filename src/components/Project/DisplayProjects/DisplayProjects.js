@@ -15,7 +15,6 @@ const DisplayProjects = (props) => {
     const { width } = props;
     
     const projectState = useSelector((state) => state.projects);
-    console.log('PROJECT STATE:-', projectState)
 
     const handleProjectCardClick = (id) => {
         getProjectDetails(id)
