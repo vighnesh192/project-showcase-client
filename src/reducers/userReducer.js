@@ -1,5 +1,6 @@
 const initialState = {
-    users: undefined
+    users: undefined,
+    profile: {}
 }
 
 const userReducer = (state = initialState, action) => {
@@ -7,6 +8,13 @@ const userReducer = (state = initialState, action) => {
         case 'setTopCreators':
             state = {
                 users: action.payload.data
+            }
+            return state;
+        
+        case 'setUserProfile':
+            console.log('IN PROFILE REDUCER')
+            state = {
+                profile: action.payload.data
             }
             return state;
     

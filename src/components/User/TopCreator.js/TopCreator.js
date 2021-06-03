@@ -1,4 +1,7 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -17,7 +20,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopCreator = (props) => {
+  const users = useSelector((state) => state.users);
+  console.log('CREATORS STATE', users);
+
   const classes = useStyles();
+
+  console.log('TopCreator PROPS', props);
+
+  const onCreatorClick = (id) => {
+    props.history.push(`/user/${id}`);
+  }
 
   return (
     <ListItem alignItems="flex-start">
@@ -29,8 +41,10 @@ const TopCreator = (props) => {
             <React.Fragment>
               <Typography
                 component="span"
-                className={classes.inline}
+                className={classes.inline, "creator-name"}
                 color="textPrimary"
+                style={{ cursor: "pointer" }}
+                onClick={() => onCreatorClick(props.user[0].userId)}
               >
                 {props.user[0].user[0].first_name ? props.user[0].user[0].first_name + " " + props.user[0].user[0].last_name : props.user[0].user[0].username}
               </Typography>
@@ -44,4 +58,4 @@ const TopCreator = (props) => {
   );
 }
 
-export default TopCreator;
+export default withRouter(TopCreator);

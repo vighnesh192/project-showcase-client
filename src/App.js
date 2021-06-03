@@ -7,6 +7,7 @@ import { checkLogin } from "./services/authServices";
 import { login } from "./actions/accountActions";
 import PostProject from "./components/Project/PostProject/PostProject";
 import ProjectDetails from "./components/Project/ProjectDetails/ProjectDetails";
+import Profile from "./components/User/Profile/Profile";
 
 function App() {
 	const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
 					<Route exact path="/" component={MainPage} />
 					<Route exact path="/project/post-project" component={PostProject} />
 					<Route exact path="/project/:projectId" component={ProjectDetails} />
+					<Route exact path="/user/:userId" component={Profile} />
 				</Switch>
 			</div>
 		</Router>
