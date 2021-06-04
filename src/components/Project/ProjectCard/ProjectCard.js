@@ -100,7 +100,7 @@ const CardHeader = (props) => {
 					<b>{props.project ? props.project.title : ""}</b>
 				</Typography>
 				<Typography className={styles.subheader}>
-					{props.project ? props.project.description : ""}
+					{props.project ? props.project.tagline : ""}
 				</Typography>
 			</Item>
 			
