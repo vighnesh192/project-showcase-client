@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -19,7 +20,7 @@ import "./ProjectDetails.css";
 import { getProjectDetails } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
 
-function ProjectDetails() {
+function ProjectDetails(props) {
     const useStyles = makeStyles((theme) => ({
         card: {
             border: "2px solid",
@@ -76,6 +77,10 @@ function ProjectDetails() {
 			})
 	}
 
+    const onCreatorClick = (id) => {
+        props.history.push(`/user/${id}`);
+    }
+
     return (
         <div id="project-details">
             <h1>{projectDetails.title}</h1>
@@ -118,6 +123,8 @@ function ProjectDetails() {
                                         component="span"
                                         className={styles.inline}
                                         color="textPrimary"
+                                        style={{cursor: 'pointer'}}
+                                        onClick={() => onCreatorClick(projectDetails.user[0].id)}
                                     >
                                         {projectDetails.user[0].first_name ? projectDetails.user[0].first_name + " " + projectDetails.user[0].last_name : projectDetails.user[0].username}
                                     </Typography>
@@ -135,4 +142,4 @@ function ProjectDetails() {
     )
 }
 
-export default ProjectDetails;
+export default withRouter(ProjectDetails);
