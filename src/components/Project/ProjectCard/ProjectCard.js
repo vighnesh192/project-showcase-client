@@ -119,7 +119,7 @@ const useStyles = makeStyles(() => ({
 		},
 	},
 	image: {
-		height: "100%",
+		height: "160px",
 		width: "100%",
 		borderRadius: 8
 	},
@@ -166,14 +166,14 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 					{ 
 						props.project.image == null 
 						? 
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}/>
+						<Box minHeight={160} maxHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}/>
 						: 
-						<Box minHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}>
+						<Box minHeight={160} maxHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}>
 							{
 								projectsQueryType !== "new" ? 
-								<img id={`project-image-${props.project.project}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}} alt=""></img> 
+								<img id={`project-image-${props.project.project}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}} alt=""></img> 
 								:
-								<img id={`project-image-${props.project.id}`} className={styles.image} maxHeight={160} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 
+								<img id={`project-image-${props.project.id}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 
 							
 							}	
 						</Box>
