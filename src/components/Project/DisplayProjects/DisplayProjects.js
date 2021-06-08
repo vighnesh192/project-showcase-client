@@ -15,6 +15,7 @@ const DisplayProjects = (props) => {
     const { width } = props;
     
     const projectState = useSelector((state) => state.projects);
+    console.log('DISPLAY PROJECTS STATE', projectState)
 
     const handleProjectCardClick = (id) => {
         getProjectDetails(id)
@@ -25,7 +26,7 @@ const DisplayProjects = (props) => {
 
     // @Doubt   Why does this not work if written directly in return()
     const renderedProjects = projectState.projects ? projectState.projects.map((project, index) => {
-        return <ProjectCard onClick={() => handleProjectCardClick(projectState.queryState !== 'new' ? project.project : project.id)} href={`/project/${projectState.queryState !== 'new' ? project.project : project.id}`} style={{cursor : 'pointer'}} key={project.project} project={project} key={index} />   
+        return <ProjectCard from={props.from} onClick={() => handleProjectCardClick(projectState.queryState !== 'new' ? project.project : project.id)} href={`/project/${projectState.queryState !== 'new' ? project.project : project.id}`} style={{cursor : 'pointer'}} key={project.project} project={project} key={index} />   
     }) : ""
 
     return (

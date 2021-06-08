@@ -48,7 +48,7 @@ const MainPage = () => {
 		<div className={classes.root} id="main-page">
 			<Grid container spacing={3}>
 				<Grid item  md={8}>
-					<DisplayProjects />
+					<DisplayProjects from={'MainPage'}/>
 				</Grid>
 				<Grid item  md={4}>
 					<TopCreatorsList />

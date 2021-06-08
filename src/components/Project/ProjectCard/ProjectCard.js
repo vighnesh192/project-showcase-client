@@ -154,7 +154,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 			onClick={() => handleProjectCardClick(projectsQueryType !== 'new' ? props.project.project : props.project.id)} 
 			href={`/project/${projectsQueryType !== 'new' ? props.project.project : props.project.id}`} 
 			style={{cursor : 'pointer'}}
-			item xs={12} sm={6}
+			item xs={12} sm={6} md={props.from === 'MainPage' ? 6 : 4}
 		>
 			<Column
 				className={styles.card}

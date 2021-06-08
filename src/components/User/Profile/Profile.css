@@ -1,0 +1,26 @@
+#profile-nav {
+    margin-top: 1rem;
+    display: flex;
+    margin-left: 1.25rem;
+    height: 3.5rem;
+    align-items: center;
+    border-bottom: 1px solid rgba(var(--b38,219,219,219),1);
+}
+
+#profile-nav ul {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#profile-nav ul li{
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+    height: 100%;
+    align-items: center;
+}
+
+#profile-nav-content {
+    margin-left: 1.25rem;
+}
