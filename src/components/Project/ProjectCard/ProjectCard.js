@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 import axios from "axios";
 import { withRouter } from 'react-router-dom';
 
-import { getProjectDetails, getProjects } from "../../../services/projectService";
+import { getProjectDetails, getProjects, getProjectsByUser } from "../../../services/projectService";
 import { setProjectDetails, setProjects } from "../../../actions/projectActions";
 import { getTopCreators } from "../../../services/userService";
 import { setTopCreators } from "../../../actions/userActions";
@@ -40,18 +40,28 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	}
 }));
 
-const BasicProfile = (props) => {
+const BasicProfile = withRouter((props) => {
 	const styles = useBasicProfileStyles();
 	const projectState = useSelector((state) => state.projects);
 	const dispatch = useDispatch();
 
+	console.log('PROPS', props)
+
 	const handleUpvoteClick = (projectId) => {
 		axios.post(`/projects/vote`, { project: projectId })
 			.then((res) => {
-				getProjects(projectState.queryType ? projectState.queryType : 'popular')
-					.then(data => {
-						dispatch(setProjects(data, props.projectsQueryType));
-					});
+				if(props.from === 'MainPage') {
+					getProjects(projectState.queryType ? projectState.queryType : 'popular')
+						.then(data => {
+							dispatch(setProjects(data, props.projectsQueryType));
+						});
+				}
+				else {
+					getProjectsByUser(props.profile.id)
+						.then(data => {
+							dispatch(setProjects(data, props.projectsQueryType));
+						});
+				}
 
 				getTopCreators()
 					.then(data => {
@@ -59,25 +69,29 @@ const BasicProfile = (props) => {
 					})
 			})
 	}
+
+	const onCreatorClick = (id) => {
+		props.history.push(`/user/${id}`);
+	}
 	
 	return (
 		<Row {...props}>
 			<Item>
-				<Avatar src={props.profile.profilePic ? props.profile.profilePic.url : ''} className={styles.avatar}>{props.profile ? props.profile.username ? props.profile.username[0].toUpperCase() : props.profile.first_name[0].toUpperCase() : ""}</Avatar>
+				<Avatar onClick={() => onCreatorClick(props.profile.id)} style={{cursor : 'pointer'}} src={props.profile.profilePic ? props.profile.profilePic.url : ''} className={styles.avatar}>{props.profile ? props.profile.username ? props.profile.username[0].toUpperCase() : props.profile.first_name[0].toUpperCase() : ""}</Avatar>
 			</Item>
-			<Item position={"middle"} pl={{ sm: 0.5, lg: 0.5 }}>
+			<Item onClick={() => onCreatorClick(props.profile.id)} position={"middle"} pl={{ sm: 0.5, lg: 0.5 }} style={{cursor : 'pointer'}}>
 				<Typography className={styles.overline}>CREATOR</Typography>
 				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
 			</Item>
 			<Item position={"right"}>
-				<Button variant="outlined" className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.projectsQueryType !== 'new' ? props.project.project : props.project.id) }>
+				<Button variant="outlined" style={{cursor : 'pointer'}} className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.projectsQueryType !== 'new' ? props.project.project : props.project.id) }>
 					<ArrowDropUpIcon />
 					<Typography>{props.project.allVotes.length}</Typography>
 				</Button>
 			</Item>
 		</Row>
 	);
-};
+});
 
 const useCardHeaderStyles = makeStyles(() => ({
 	root: { paddingBottom: 0 },
@@ -91,11 +105,32 @@ const useCardHeaderStyles = makeStyles(() => ({
 	},
 }));
 
-const CardHeader = (props) => {
+const CardHeader = withRouter((props) => {
 	const styles = useCardHeaderStyles();
+
+	const projectsQueryType = useSelector((state) => state.projects.queryType);
+	const allProjects = useSelector((state) => state.projects.projects);
+
+	const dispatch = useDispatch();
+
+	const handleProjectCardClick = (id) => {
+		console.log('IN HANDLE PROJECT CARD CLICK', props, props.project.id)
+        getProjectDetails(props.project.id)
+            .then((data) => {
+				console.log('DATA', data)
+				dispatch(setProjectDetails(allProjects, projectsQueryType, data));
+				props.history.push(`/project/${id}`);
+            })
+			.catch((err) => console.log('ERROR', err))
+    }
+
 	return (
 		<Row {...props}>
-			<Item position={"middle"}>
+			<Item 
+				position={"middle"}
+				onClick={() => handleProjectCardClick(props.project.id)} 
+				style={{cursor : 'pointer'}}
+			>
 				<Typography className={styles.title}>
 					<b>{props.project ? props.project.title : ""}</b>
 				</Typography>
@@ -106,7 +141,7 @@ const CardHeader = (props) => {
 			
 		</Row>
 	);
-};
+});
 
 const useStyles = makeStyles(() => ({
 	card: {
@@ -141,6 +176,8 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 	const projectsQueryType = useSelector((state) => state.projects.queryType);
 	const allProjects = useSelector((state) => state.projects.projects);
 
+	console.log('PROJECT CARD PROPS', props)
+
 	const handleProjectCardClick = (id) => {
         getProjectDetails(id)
             .then((data) => {
@@ -150,11 +187,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
     }
 
 	return (
-		<Grid 
-			onClick={() => handleProjectCardClick(projectsQueryType !== 'new' ? props.project.project : props.project.id)} 
-			href={`/project/${projectsQueryType !== 'new' ? props.project.project : props.project.id}`} 
-			style={{cursor : 'pointer'}}
-			item xs={12} sm={6} md={props.from === 'MainPage' ? 6 : 4}
+		<Grid item xs={12} sm={6} md={props.from === 'MainPage' ? 6 : 4}
 		>
 			<Column
 				className={styles.card}
@@ -162,7 +195,10 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 				gap={gap}
 			>
 				<CardHeader project={projectsQueryType !== "new" ? props.project.proj : props.project}/>
-				<Item>
+				<Item 
+					onClick={() => handleProjectCardClick(projectsQueryType !== 'new' ? props.project.project : props.project.id)} 
+					style={{cursor : 'pointer'}}
+				>
 					{ 
 						props.project.image == null 
 						? 
@@ -173,13 +209,12 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 								projectsQueryType !== "new" ? 
 								<img id={`project-image-${props.project.project}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}} alt=""></img> 
 								:
-								<img id={`project-image-${props.project.id}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 
-							
+								<img id={`project-image-${props.project.id}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 						
 							}	
 						</Box>
 					}
 				</Item>
-				<BasicProfile profile={props.project.user ? props.project.user[0] : []} project={props.project} projectsQueryType={projectsQueryType}/>
+				<BasicProfile from={props.from} profile={props.project.user ? props.project.user[0] : []} project={props.project} projectsQueryType={projectsQueryType}/>
 			</Column>
 		</Grid>
 	);
