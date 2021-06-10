@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { logout as logoutAction } from "../../actions/accountActions";
 import { logout as logoutService } from "../../services/authServices";
 import { getProjects } from "../../services/projectService";
@@ -14,7 +14,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import "./AppNavbar.css"
 import { grey } from "@material-ui/core/colors";
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -46,8 +46,21 @@ function ListItemLink(props) {
 }
 
 //Main Navbar function
-export default function AppNavbar() {
+const AppNavbar = (props) => {
 	const classes = useStyles();
+
+	const [queryState, setQueryState] = useState('popular');
+
+	useEffect(() => {
+		let mounted = true;
+		if(mounted) {
+			document.getElementById(queryState).style.borderBottom = '1px solid #262626';
+			document.getElementById(queryState).style.fontWeight = '500';
+		}
+		return () => {
+			mounted = false;
+		}
+	}, [])
 
 	const [state, setState] = React.useState({
 		top: false,
@@ -116,10 +129,33 @@ export default function AppNavbar() {
 			.then((data) => {
 				// @TODO Error handling using data.success
 				dispatch(logoutAction());
+				handleClose();
 			})
 	}
 
 	const handleProjectQuery = (query) => {
+		setQueryState(query);
+		//	@TODO  Try to find a better way to do this:-
+		document.getElementById(query).style.borderBottom = '1px solid #262626';
+		document.getElementById(query).style.fontWeight = '500';
+		if(query === 'popular') {
+			document.getElementById('new').style.borderBottom = 'none';
+			document.getElementById('new').style.fontWeight = '400';
+			document.getElementById('trending').style.borderBottom = 'none';
+			document.getElementById('trending').style.fontWeight = '400';
+		}
+		else if(query === 'trending') {
+			document.getElementById('new').style.borderBottom = 'none';
+			document.getElementById('new').style.fontWeight = '400';
+			document.getElementById('popular').style.borderBottom = 'none';
+			document.getElementById('popular').style.fontWeight = '400';
+		}
+		else {
+			document.getElementById('trending').style.borderBottom = 'none';
+			document.getElementById('trending').style.fontWeight = '400';
+			document.getElementById('popular').style.borderBottom = 'none';
+			document.getElementById('popular').style.fontWeight = '400';
+		}
 		getProjects(query)
 			.then((data) => {
 				dispatch(setProjects(data, query));
@@ -134,23 +170,28 @@ export default function AppNavbar() {
 	setAnchorEl(null);
 	};
 
+	const handleProfileClick = () => {
+		props.history.push(`/user/${JSON.parse(localStorage.getItem('User')).id}`);
+		handleClose();
+	}
+
 	return (
 		<nav>
 			<NavLink id="logo" to="/" className="Link">
 				<h2>PS</h2>
 			</NavLink>
 			<ul>
-				<li>
+				<li id='new'>
 					<NavLink onClick={() => handleProjectQuery('new')} activeClassName="active" className="Link" to="/">
 						New 
 					</NavLink>
 				</li>
-				<li>
+				<li id='trending'>
 					<NavLink onClick={() => handleProjectQuery('trending')} activeClassName="active" className="Link" to="/">
 						Trending
 					</NavLink>
 				</li>
-				<li>
+				<li id='popular'>
 					<NavLink onClick={() => handleProjectQuery('popular')} activeClassName="active" className="Link" to="/">
 						Popular
 					</NavLink>
@@ -224,7 +265,7 @@ export default function AppNavbar() {
 									open={open}
 									onClose={handleClose}
 								>
-									<MenuItem onClick={handleClose}>Profile</MenuItem>
+									<MenuItem onClick={() => handleProfileClick()}>Profile</MenuItem>
 									<MenuItem onClick={() => Logout()}>Logout</MenuItem>
 								</Menu>
 							</React.Fragment>
@@ -254,7 +295,7 @@ export default function AppNavbar() {
 									open={open}
 									onClose={handleClose}
 								>
-									<MenuItem onClick={handleClose}>Profile</MenuItem>
+									<MenuItem onClick={() => handleProfileClick()}>Profile</MenuItem>
 									<MenuItem onClick={() => Logout()}>Logout</MenuItem>
 								</Menu>
 							</React.Fragment>
@@ -267,3 +308,5 @@ export default function AppNavbar() {
 		</nav>
 	);
 }
+
+export default withRouter(AppNavbar);
