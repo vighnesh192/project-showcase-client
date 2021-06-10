@@ -21,11 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 const TopCreator = (props) => {
   const users = useSelector((state) => state.users);
-  console.log('CREATORS STATE', users);
 
   const classes = useStyles();
-
-  console.log('TopCreator PROPS', props);
 
   const onCreatorClick = (id) => {
     props.history.push(`/user/${id}`);

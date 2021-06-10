@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
-    borderRadius: 10
+    borderRadius: 10,
+    boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.25)',
+    WebkitBoxShadow: '0px 1px 2px 0px rgba(0,0,0,0.25)',
+    MozBoxShadow : '0px 1px 2px 0px rgba(0,0,0,0.25)'
   },
   inline: {
     display: 'inline',
