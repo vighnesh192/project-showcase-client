@@ -16,11 +16,27 @@ import Avatar from '@material-ui/core/Avatar';
 
 import axios from "axios";
 
+import Disqus from "disqus-react";
+
 import "./ProjectDetails.css";
 import { getProjectDetails } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
 
 function ProjectDetails(props) {
+    const projectDetails = useSelector((state) => state.projects.projectDetails);
+    const allProjects = useSelector((state) => state.projects.projects);
+    const projectsQueryType = useSelector((state) => state.projects.queryType);
+    const dispatch = useDispatch();
+
+    console.log('PROJECT DETAILS', projectDetails);
+
+    const disqusShortname = "projectshowcase"
+    const disqusConfig = {
+      url: `http://localhost:3000/project/${projectDetails.id}`,
+      identifier: projectDetails.id,
+      title: "Project Showcase"
+    }
+    
     const useStyles = makeStyles((theme) => ({
         card: {
             border: "2px solid",
@@ -52,11 +68,6 @@ function ProjectDetails(props) {
         },
     }));
     const styles = useStyles();
-
-    const projectDetails = useSelector((state) => state.projects.projectDetails);
-    const allProjects = useSelector((state) => state.projects.projects);
-    const projectsQueryType = useSelector((state) => state.projects.queryType);
-    const dispatch = useDispatch();
 
     console.log('PROJECT DETAILS', projectDetails);
 
@@ -137,7 +148,12 @@ function ProjectDetails(props) {
                     </ListItem>
 				</Grid>
 			</Grid>
-            
+            <br />
+            <br />
+            <Disqus.DiscussionEmbed
+                shortname={disqusShortname}
+                config={disqusConfig}
+            />
         </div>
     )
 }
