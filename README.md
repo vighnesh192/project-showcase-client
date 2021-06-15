@@ -3,6 +3,19 @@
 </h1>
 <p align="center">Frontend for Project Showcase (a platform for people to showcase their projects and build a project-centric profile)</p>
 
+<br>
+
+<p align="center">
+  <img alt="Light" src="https://user-images.githubusercontent.com/64535868/122119881-5c366280-ce47-11eb-98a3-36aff655a4d7.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="https://user-images.githubusercontent.com/64535868/122119958-7708d700-ce47-11eb-89a5-6a3666b56011.png" width="45%">
+<br>
+<br>
+<img alt="Dark" src="https://user-images.githubusercontent.com/64535868/122119965-796b3100-ce47-11eb-9062-ad60f3371dd8.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+<img alt="Dark" src="https://user-images.githubusercontent.com/64535868/122119975-7c662180-ce47-11eb-88a3-ee7858b204ed.png" width="45%">
+</p>
+
 <a id="setup-run"></a>
 ## 🔨 Setup and Run
 
