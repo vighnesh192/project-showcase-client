@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import AdditionalDetails from './AdditionalDetails/AdditionalDetails';
 import PrimaryDetails from './PrimaryDetails/PrimaryDetails';
+import { getProjectDetails } from "../../../services/projectService";
+import { setProjectDetails } from "../../../actions/projectActions";
+
 const axios = require("axios");
 
-function PostProject() {
+const PostProject = (props) => {
     const [step, setStep] = useState(1);
-    
+    const dispatch = useDispatch();
+
+    const projectsQueryType = useSelector((state) => state.projects.queryType);
+	const allProjects = useSelector((state) => state.projects.projects);
+
     const [userDetails, setUserDetails] = useState({
         title: '',
         tagline: '',
@@ -43,28 +53,49 @@ function PostProject() {
         //     console.log('FILE', event.target.files[0])
         //   };
           reader.readAsDataURL(event.target.files[0]);
+          console.log(imageState);
         }
     }
 
     const postProject = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('image', imageState.image);
-        // formData.append('data', userDetails)
-        for (const key in userDetails) {
-            formData.append(key, userDetails[key]);
+
+        //  Form Validation
+        let proceed = true;
+        for(const key in userDetails) {
+            if(key !== 'youtube' && key !== 'website' && userDetails[key] === '') proceed = false;
         }
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
+
+        if(proceed && imageState.image !== '') {
+            const formData = new FormData();
+            formData.append('image', imageState.image);
+            // formData.append('data', userDetails)
+            for (const key in userDetails) {
+                formData.append(key, userDetails[key]);
             }
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+            axios.post("/projects/", formData, config)
+                .then((res) => {
+                    getProjectDetails(res.project.id)
+                        .then((data) => {
+                            console.log('DATA', data)
+                            dispatch(setProjectDetails(allProjects, projectsQueryType, data));
+                            alert("The file is successfully uploaded");
+                            props.history.push(`/project/${res.project.id}`);
+                        })
+                        .catch((err) => console.log('ERROR', err));
+    
+                }).catch((error) => {
+                    console.log(error);
+                });
         }
-        axios.post("/projects/", formData, config)
-            .then((response) => {
-                alert("The file is successfully uploaded");
-            }).catch((error) => {
-                console.log(error);
-            });
+        else {
+            alert('No form values can be empty')
+        }
     }
 
     switch(step) {
@@ -100,4 +131,4 @@ function PostProject() {
     }
 }
 
-export default PostProject;
+export default withRouter(PostProject);

@@ -150,6 +150,9 @@ function ProjectDetails(props) {
 			</Grid>
             <br />
             <br />
+            <hr style={{ borderTop: "1px" }}/>
+            <br />
+            <br />
             <Disqus.DiscussionEmbed
                 shortname={disqusShortname}
                 config={disqusConfig}

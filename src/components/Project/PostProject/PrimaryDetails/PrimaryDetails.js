@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import { green, grey } from '@material-ui/core/colors';
 
 import './PrimaryDetails.css'
 
@@ -37,13 +40,40 @@ const useStyles = makeStyles((theme) => ({
 function PrimaryDetails (props) {
     const classes = useStyles();
 
+    const ColorButton = withStyles((theme) => ({
+      root: {
+        color: "#434E5C",
+        backgroundColor: grey[250],
+      },
+    }))(Button);
+
     const nextStep = (e) => {
         e.preventDefault();
         props.nextStep();
     }
 
+    const [image, setImage] = useState({image: '', imageDetails: ''})
+
+    const onImageChange = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        // if(event.target.files[0].size < 500) {
+          props.onImageChange(event);
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            setImage({image: e.target.result, imageDetails: event.target.files[0]});
+            document.getElementById('done-icon').style.display = 'block'
+            console.log('IMAGE:-', e.target.result)
+            console.log('FILE', event.target.files[0]);
+            console.log('STATE IMAGE', image)
+          };
+          reader.readAsDataURL(event.target.files[0]);
+        // }
+        // else alert('File size cannot be greater than 500KB');
+      }
+    }
+
     const { tagline, description, title } = props.userDetails;
-    const { image } = props.imageDetails;
+    // const { image } = props.imageDetails.image;
   
     return (
       <Container component="main" maxWidth="xs">
@@ -57,7 +87,7 @@ function PrimaryDetails (props) {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
-                  required
+                  required = "true"
                   fullWidth
                   id="title"
                   label="Title"
@@ -95,14 +125,18 @@ function PrimaryDetails (props) {
                   onChange={props.handleChange}
                 />
               </Grid>
-              <input type="file" hidden onChange={props.onImageChange}  id="image-input"/>
-              <label htmlFor="image-input">
-                <Button variant="raised" component="span" >
-                  Upload  
-                </Button>
-              </label>
+              <input type="file" hidden onChange={(e) => onImageChange(e)} id="image-input"/>
+              <div id='image-upload-section'>
+                <label htmlFor="image-input" style={{marginTop: '8px', marginLeft: '8px'}}>
+                  <ColorButton >
+                    Chose Image  
+                  </ColorButton>
+                </label>
+                <p style={{display: 'flex', alignItems: 'center', marginTop: '8px', marginLeft: '6px'}}>{image.imageDetails.name}</p>
+                <CheckCircleOutlineIcon id='done-icon' style={{ color: green[800], display: 'none' }}/>
+              </div>
               <br /> 
-              <img id="img-output" className={classes.imgPreview} src={image} alt=""/>
+              {/* <img id="img-output" className={classes.imgPreview} src={image.image} alt=""/> */}
             </Grid>
             <Button
               fullWidth

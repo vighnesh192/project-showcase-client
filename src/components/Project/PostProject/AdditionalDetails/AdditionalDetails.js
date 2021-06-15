@@ -59,6 +59,7 @@ function AdditionalDetails(props) {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="website"
+                  type="url"
                   name="website"
                   variant="outlined"
                   required
@@ -73,7 +74,7 @@ function AdditionalDetails(props) {
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
-                  required
+                  required = "true"
                   fullWidth
                   id="github"
                   label="Github"
@@ -109,6 +110,7 @@ function AdditionalDetails(props) {
               <Grid item justify="flex-start">
                 <Button
                 fullWidth
+                type="submit"
                 variant="contained"
                 className={classes.next}
                 onClick = {props.postProject}
@@ -117,8 +119,7 @@ function AdditionalDetails(props) {
                 Submit
                 </Button>
               </Grid>
-            </Grid>
-            
+            </Grid>  
           </form>
         </div>
       </Container>
