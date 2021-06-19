@@ -30,9 +30,11 @@ function ProjectDetails(props) {
 
     console.log('PROJECT DETAILS', projectDetails);
 
+    const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/project' : 'https://projstemp.herokuapp.com/project';
+
     const disqusShortname = "projectshowcase"
     const disqusConfig = {
-      url: `http://localhost:3000/project/${projectDetails.id}`,
+      url: `${url}/${projectDetails.id}`,
       identifier: projectDetails.id,
       title: "Project Showcase"
     }

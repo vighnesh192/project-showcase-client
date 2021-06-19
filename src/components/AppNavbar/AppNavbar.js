@@ -175,6 +175,8 @@ const AppNavbar = (props) => {
 		handleClose();
 	}
 
+	const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'https://projstemp.herokuapp.com';
+
 	return (
 		<nav>
 			<NavLink id="logo" to="/" className="Link">
@@ -202,7 +204,7 @@ const AppNavbar = (props) => {
 					!localStorage.getItem('User') ? 
 					<React.Fragment>
 						<ColorButton className={classes.margin, classes.a}>
-							<a style={{textDecoration: "none", color: "black"}} href="http://localhost:8080/auth/google">Login</a>
+							<a style={{textDecoration: "none", color: "black"}} href={`${url}/auth/google`}>Login</a>
 						</ColorButton>
 					</React.Fragment>
 						:
