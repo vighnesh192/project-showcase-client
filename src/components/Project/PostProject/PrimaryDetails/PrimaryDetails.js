@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -55,6 +55,7 @@ function PrimaryDetails (props) {
     const [image, setImage] = useState({image: '', imageDetails: ''})
 
     const onImageChange = (event) => {
+      console.log('EVENT', event)
       if (event.target.files && event.target.files[0]) {
         // if(event.target.files[0].size < 500) {
           props.onImageChange(event);
@@ -62,9 +63,6 @@ function PrimaryDetails (props) {
           reader.onload = (e) => {
             setImage({image: e.target.result, imageDetails: event.target.files[0]});
             document.getElementById('done-icon').style.display = 'block'
-            console.log('IMAGE:-', e.target.result)
-            console.log('FILE', event.target.files[0]);
-            console.log('STATE IMAGE', image)
           };
           reader.readAsDataURL(event.target.files[0]);
         // }
@@ -72,8 +70,14 @@ function PrimaryDetails (props) {
       }
     }
 
+    const onChooseImageClick = () => {
+      imageInput.current.click();
+    }
+
     const { tagline, description, title } = props.userDetails;
     // const { image } = props.imageDetails.image;
+
+    const imageInput = useRef( null );
   
     return (
       <Container component="main" maxWidth="xs">
@@ -125,10 +129,10 @@ function PrimaryDetails (props) {
                   onChange={props.handleChange}
                 />
               </Grid>
-              <input type="file" hidden onChange={(e) => onImageChange(e)} id="image-input"/>
+              <input ref={imageInput} type="file" hidden onChange={(e) => onImageChange(e)} id="image-input"/>
               <div id='image-upload-section'>
                 <label htmlFor="image-input" style={{marginTop: '8px', marginLeft: '8px'}}>
-                  <ColorButton >
+                  <ColorButton onClick={onChooseImageClick}>
                     Chose Image  
                   </ColorButton>
                 </label>
