@@ -1,6 +1,6 @@
 const initialState = {
     users: undefined,
-    profile: {}
+    profile: undefined
 }
 
 const userReducer = (state = initialState, action) => {

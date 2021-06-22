@@ -24,6 +24,7 @@ const Profile = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+      console.log('here')
       let mounted = true;
       if(mounted) {
         getUserProfile(props.match.params.userId)
@@ -47,7 +48,7 @@ const Profile = (props) => {
       return () => {
         mounted = false;
       }
-    }, [tabState]);
+    }, []);
 
     const profile = useSelector((state) => state.users.profile);
 
