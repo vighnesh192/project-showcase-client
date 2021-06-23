@@ -114,14 +114,7 @@ const CardHeader = withRouter((props) => {
 	const dispatch = useDispatch();
 
 	const handleProjectCardClick = (id) => {
-		console.log('IN HANDLE PROJECT CARD CLICK', props, props.project.id)
-        getProjectDetails(props.project.id)
-            .then((data) => {
-				console.log('DATA', data)
-				dispatch(setProjectDetails(allProjects, projectsQueryType, data));
-				props.history.push(`/project/${id}`);
-            })
-			.catch((err) => console.log('ERROR', err))
+		props.history.push(`/project/${id}`);
     }
 
 	return (

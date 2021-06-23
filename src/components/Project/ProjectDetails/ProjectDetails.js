@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -23,10 +23,26 @@ import { getProjectDetails } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
 
 function ProjectDetails(props) {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        let mounted = true;
+        if(mounted) {
+            getProjectDetails(props.match.params.projectId)
+            .then((data) => {
+				dispatch(setProjectDetails(allProjects, projectsQueryType, data));
+            })
+			.catch((err) => console.log('ERROR', err))
+        }
+        return () => {
+          mounted = false;
+        }
+    }, []);
+
     const projectDetails = useSelector((state) => state.projects.projectDetails);
     const allProjects = useSelector((state) => state.projects.projects);
-    const projectsQueryType = useSelector((state) => state.projects.queryType);
-    const dispatch = useDispatch();
+    const projectsQueryType = useSelector((state) => state.projects.queryType);    
 
     console.log('PROJECT DETAILS', projectDetails);
 
@@ -34,8 +50,8 @@ function ProjectDetails(props) {
 
     const disqusShortname = "projectshowcase"
     const disqusConfig = {
-      url: `${url}/${projectDetails.id}`,
-      identifier: projectDetails.id,
+      url: projectDetails ? `${url}/${projectDetails.id}` : '',
+      identifier: projectDetails ? projectDetails.id : '',
       title: "Project Showcase"
     }
     
@@ -96,24 +112,30 @@ function ProjectDetails(props) {
 
     return (
         <div id="project-details">
-            <h1>{projectDetails.title}</h1>
+            <h1>{projectDetails ? projectDetails.title : ''}</h1>
             <br/>
             <Grid container spacing={3}>
 				<Grid item md={8}>
                     <Box bgcolor={"#F4F7FA"} className={styles.box} borderRadius={8}>
-                        <img id="img" className={styles.image} src={`/${projectDetails.image ? projectDetails.image.url : ''}`}  alt="" onError={() => {imageError()}}></img>
+                        {
+                            projectDetails 
+                            ?
+                            <img id="img" className={styles.image} src={`/${projectDetails ? projectDetails.image.url : ''}`}  alt="" onError={() => {imageError()}}></img>
+                            :
+                            ''
+                        }
                     </Box>
                     <br/>
                     <Grid container spacing={3}>
                         <Grid style={{ display: "flex", alignItems: "center" }} item xs={8}>
-                            <h3>{projectDetails.tagline}</h3>
+                            <h3>{projectDetails ? projectDetails.tagline : ''}</h3>
                         </Grid>
                         <Grid item xs={4}>
                             <Row>
                                 <Item position={"right"}>
                                     <Button onClick={() => handleUpvoteClick(projectDetails.id)} variant="outlined" >
                                         <ArrowDropUpIcon />
-                                        <Typography>{projectDetails.allVotes.length}</Typography>
+                                        <Typography>{projectDetails ? projectDetails.allVotes.length : ''}</Typography>
                                     </Button>
                                 </Item>
                             </Row>
@@ -121,12 +143,12 @@ function ProjectDetails(props) {
                     </Grid>
                     <br/>
                     {/* <br/> */}
-                    <p>{projectDetails.description}</p>
+                    <p>{projectDetails ? projectDetails.description : ''}</p>
 				</Grid>
                 <Grid item  md={4}>
                     <ListItem alignItems="flex-start" style={{ paddingTop: 0 }}>
                         <ListItemAvatar style={{ marginTop: 0 }}>
-                            <Avatar alt="Cindy Baker" src={projectDetails.user[0].profilePic.url}>{projectDetails.user[0].first_name ? projectDetails.user[0].first_name[0].toUpperCase() : projectDetails.user[0].username[0].toUpperCase()}</Avatar>
+                            <Avatar alt="Cindy Baker" src={projectDetails ? projectDetails.user[0].profilePic.url : ''}>{projectDetails ? projectDetails.user[0].first_name ? projectDetails.user[0].first_name[0].toUpperCase() : projectDetails.user[0].username[0].toUpperCase() : ''}</Avatar>
                         </ListItemAvatar>
                         <ListItemText 
                             style={{ marginTop: -3 }}
@@ -137,12 +159,12 @@ function ProjectDetails(props) {
                                         className={styles.inline}
                                         color="textPrimary"
                                         style={{cursor: 'pointer'}}
-                                        onClick={() => onCreatorClick(projectDetails.user[0].id)}
+                                        onClick={() => onCreatorClick(projectDetails ? projectDetails.user[0].id : '')}
                                     >
-                                        {projectDetails.user[0].first_name ? projectDetails.user[0].first_name + " " + projectDetails.user[0].last_name : projectDetails.user[0].username}
+                                        {projectDetails ? projectDetails.user[0].first_name ? projectDetails.user[0].first_name + " " + projectDetails.user[0].last_name : projectDetails.user[0].username : ''}
                                     </Typography>
                                     <Typography variant="body2">
-                                        {projectDetails.user[0].bio ? projectDetails.user[0].bio : 'CREATOR'}
+                                        {projectDetails ? projectDetails.user[0].bio ? projectDetails.user[0].bio : 'CREATOR' : ''}
                                     </Typography>
                                 </React.Fragment>
                         }
