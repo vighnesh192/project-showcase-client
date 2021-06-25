@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AppNavbar from "./components/AppNavbar/AppNavbar";
 import MainPage from "./components/MainPage/MainPage";
@@ -12,6 +12,8 @@ import Profile from "./components/User/Profile/Profile";
 function App() {
 	const dispatch = useDispatch();
 
+	const [loggedIn, setLoggedIn] = useState(false)
+
 	useEffect(() => {
 		let mounted = true;
 		if(mounted) {
@@ -19,13 +21,14 @@ function App() {
 			.then(data => {
 				if(data.id) {
 					dispatch(login(data));
+					setLoggedIn(true);
 				}
 			});
 		}
 		return () => {
 		  mounted = false;
 		}
-	}, [])
+	}, [loggedIn])
 
 	return (
 		<Router>
