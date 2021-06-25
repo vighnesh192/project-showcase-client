@@ -80,12 +80,11 @@ const PostProject = (props) => {
             }
             axios.post("/projects/", formData, config)
                 .then((res) => {
-                    getProjectDetails(res.project.id)
+                    getProjectDetails(res.data.project.id)
                         .then((data) => {
-                            console.log('DATA', data)
                             dispatch(setProjectDetails(allProjects, projectsQueryType, data));
                             alert("The file is successfully uploaded");
-                            props.history.push(`/project/${res.project.id}`);
+                            props.history.push(`/project/${res.data.project.id}`);
                         })
                         .catch((err) => console.log('ERROR', err));
     
