@@ -21,10 +21,11 @@
 
 <a id="setup-repo"></a>
 ### Setup local repo
-Let's setup the server on your local machine.
+Let's setup the client on your machine.
 
 ### 0. Prerequisites
 * Make sure you have [Node.js](http://nodejs.org) installed on your machine.
+* Setup [backend of the project](https://github.com/vighnesh192/project_showcase_server) for a complete experience(optional).
 
 ### 1. Fork repo
 Fork this repo to your GitHub account
