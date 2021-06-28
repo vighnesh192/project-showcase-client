@@ -120,7 +120,7 @@ function ProjectDetails(props) {
                         {
                             projectDetails 
                             ?
-                            <img id="img" className={styles.image} src={`/${projectDetails ? projectDetails.image.url : ''}`}  alt="" onError={() => {imageError()}}></img>
+                            <img id="img" className={styles.image} src={`/${projectDetails ? projectDetails.image ? projectDetails.image.url : '' : ''}`}  alt="" onError={() => {imageError()}}></img>
                             :
                             ''
                         }
