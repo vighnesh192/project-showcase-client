@@ -46,11 +46,11 @@ const MainPage = () => {
 
 	return (
 		<div className={classes.root} id="main-page">
-			<Grid container spacing={3}>
-				<Grid item  md={8}>
+			<Grid container spacing={3} id='main-page-grid'>
+				<Grid item sm={7} md={8} id="display-projects">
 					<DisplayProjects from={'MainPage'}/>
 				</Grid>
-				<Grid item  md={4}>
+				<Grid item sm={5} md={4} id="top-creators-list">
 					<TopCreatorsList />
 				</Grid>
 			</Grid>

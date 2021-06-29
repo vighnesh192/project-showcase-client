@@ -4,3 +4,13 @@
     padding-left: 10%;
     padding-right: 10%;
 }
+
+@media screen and (max-width: 426px) {
+    #main-page-grid {
+        display: block;
+    }
+    
+    #top-creators-list {
+        display: none;
+    }
+}

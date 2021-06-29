@@ -14,7 +14,6 @@ const projectReducer = (state = initialState, action) => {
             return state;
         
         case 'SET_PROJECT_DETAILS':
-            console.log('SET_PROJECT_DETAILS REDUCER', action)
             state = { 
                 projects: action.payload.projects,
                 queryType: action.payload.queryType,

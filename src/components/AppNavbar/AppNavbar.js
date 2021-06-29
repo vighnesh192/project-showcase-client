@@ -51,6 +51,8 @@ const AppNavbar = (props) => {
 
 	const [queryState, setQueryState] = useState('popular');
 
+	const allProjects = useSelector((state) => state.projects.projects);
+
 	useEffect(() => {
 		let mounted = true;
 		if(mounted) {
@@ -83,6 +85,17 @@ const AppNavbar = (props) => {
 		setState({ ...state, [anchor]: open });
 	};
 
+	const handleMenuItemClick = (item) => {
+		if(item === 'Creators') {
+			document.getElementById('top-creators-list').style.display = 'block';
+			document.getElementById('display-projects').style.display = 'none';
+		}
+		else if(item === 'New' || item === 'Trending' || item === 'Popular') {
+			document.getElementById('top-creators-list').style.display = 'none';
+			document.getElementById('display-projects').style.display = 'block';
+		}
+	}
+
 	const list = (anchor) => (
 		<div
 			className={clsx(classes.list, classes.drawerList, {
@@ -93,21 +106,27 @@ const AppNavbar = (props) => {
 			onKeyDown={() => toggleDrawer(anchor, false)}
 		>
 			<List>
-				<ListItem button>
+				<ListItem button onClick={() => handleMenuItemClick('New')}>
 					<ListItemLink href="/">
 						<ListItemText primary="New" />
 					</ListItemLink>
 					<Divider />
 				</ListItem>
-				<ListItem button>
+				<ListItem button onClick={() => handleMenuItemClick('Trending')}>
 					<ListItemLink href="/">
 						<ListItemText primary="Trending" />
 					</ListItemLink>
 					<Divider />
 				</ListItem>
-				<ListItem button>
+				<ListItem button onClick={() => handleMenuItemClick('Popular')}>
 					<ListItemLink href="/">
 						<ListItemText primary="Popular" />
+					</ListItemLink>
+					<Divider />
+				</ListItem>
+				<ListItem button role="presentation" onClick={() => handleMenuItemClick('Creators')}>
+					<ListItemLink>
+						<ListItemText primary="Creators" />
 					</ListItemLink>
 					<Divider />
 				</ListItem>
@@ -233,6 +252,7 @@ const AppNavbar = (props) => {
 							anchor={anchor}
 							open={state[anchor]}
 							onClose={toggleDrawer(anchor, false)}
+							onClick={toggleDrawer(anchor, false)}
 						>
 							{list(anchor)}
 						</Drawer>
