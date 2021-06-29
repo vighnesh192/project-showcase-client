@@ -45,7 +45,7 @@ const TopCreator = (props) => {
               >
                 {props.user[0].user[0].first_name ? props.user[0].user[0].first_name + " " + props.user[0].user[0].last_name : props.user[0].user[0].username}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" style={{ fontSize: "14px" }}>
                   {props.user[0].user[0].bio ? props.user[0].user[0].bio : ''}
               </Typography>
             </React.Fragment>

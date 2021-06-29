@@ -113,7 +113,7 @@ const Profile = (props) => {
     };
     
     theme.typography.body2 = {
-      fontSize: '25px',
+      fontSize: '22px',
       '@media (max-width:976px)': {
         fontSize: '18px',
       },
