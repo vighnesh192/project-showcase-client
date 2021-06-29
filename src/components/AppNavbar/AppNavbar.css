@@ -1,11 +1,11 @@
 nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     position: fixed;
     width: 100%;
     align-items: center;
     /* background-color: #3F3D56; */
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     top: 0;
     height: 9vh;
     padding-left: 10%;
@@ -26,6 +26,7 @@ nav ul {
     height: 100%;
     width: 40%;
     padding-right: 0;
+    background-color: aqua;
 }
 
 nav ul li {
