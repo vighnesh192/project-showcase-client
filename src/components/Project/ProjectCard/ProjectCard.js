@@ -108,11 +108,6 @@ const useCardHeaderStyles = makeStyles(() => ({
 const CardHeader = withRouter((props) => {
 	const styles = useCardHeaderStyles();
 
-	const projectsQueryType = useSelector((state) => state.projects.queryType);
-	const allProjects = useSelector((state) => state.projects.projects);
-
-	const dispatch = useDispatch();
-
 	const handleProjectCardClick = (id) => {
 		props.history.push(`/project/${id}`);
     }

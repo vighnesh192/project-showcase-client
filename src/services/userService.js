@@ -1,19 +1,11 @@
+import axios from "axios";
+
 export function getTopCreators() {
-    return fetch('users/?sortBy=popular', {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-    })
-    .then(data => data.json())
+    return axios.get('users/?sortBy=popular')
+        .then(data => data.data)
 }
 
 export function getUserProfile(id) {
-    return fetch(`/users/${id}`, {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-    })
-    .then(data => data.json());
+    return axios.get(`/users/${id}`)
+        .then(data => data.data);
 }
