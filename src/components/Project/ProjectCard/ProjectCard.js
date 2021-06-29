@@ -175,7 +175,7 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
     }
 
 	return (
-		<Grid item xs={12} sm={12} md={props.from === 'MainPage' ? 6 : 4}
+		<Grid item xs={12} sm={props.from === 'MainPage' ? 12 : 6} md={props.from === 'MainPage' ? 6 : 4}
 		>
 			<Column
 				className={styles.card}

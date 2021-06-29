@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -92,11 +92,8 @@ const Profile = (props) => {
           marginLeft: '5%',
           marginTop: '2%',
         },
-        name: {
-          fontSize: '28px'
-        },
         bio: {
-          fontSize: '1rem',
+          // fontSize: '1rem',
           marginTop: '6px',
           marginLeft: '1px'
         }
@@ -104,6 +101,26 @@ const Profile = (props) => {
 
     const classes = useStyles();
     const theme = useTheme();
+
+    theme.typography.h4 = {
+      fontSize: '28px',
+      '@media (max-width:976px)': {
+        fontSize: '25px',
+      },
+      '@media (max-width:425px)': {
+        fontSize: '20px',
+      }
+    };
+    
+    theme.typography.body2 = {
+      fontSize: '25px',
+      '@media (max-width:976px)': {
+        fontSize: '18px',
+      },
+      '@media (max-width:425px)': {
+        fontSize: '15px',
+      }
+    };
 
     const handleTabClick = (id) => {
       setTabState(id);
@@ -133,16 +150,19 @@ const Profile = (props) => {
               className={classes.listItemText}
               secondary={
                 <React.Fragment>
-                  <Typography
-                    component="span"
-                    className={classes.inline, classes.name}
-                    color="textPrimary"
-                  >
-                    {profile ? profile.first_name + ' ' + profile.last_name : ''}
-                  </Typography>
-                  <Typography variant="body2" className={classes.bio}>
-                    {profile ? profile.bio != null ? profile.bio : 'CREATOR' : 'CREATOR'}
-                  </Typography>
+                  <ThemeProvider theme={theme}>
+                    <Typography
+                      component="span"
+                      className={classes.inline}
+                      color="textPrimary"
+                      variant="h4"
+                    >
+                      {profile ? profile.first_name + ' ' + profile.last_name : ''}
+                    </Typography>
+                    <Typography variant="body2" className={classes.bio}>
+                      {profile ? profile.bio != null ? profile.bio : 'CREATOR' : 'CREATOR'}
+                    </Typography>
+                  </ThemeProvider>
                 </React.Fragment>
               }
             />
