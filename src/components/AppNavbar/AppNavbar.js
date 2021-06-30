@@ -128,6 +128,22 @@ const AppNavbar = (props) => {
 					</ListItemLink>
 					<Divider />
 				</ListItem>
+				{
+					!localStorage.getItem('User') ? 
+					<ListItem button role="presentation" onClick={() => handleMenuItemClick('Login')}>
+						<ListItemLink href={`${url}/auth/google`}>
+							<ListItemText primary="Login" />
+						</ListItemLink>
+						<Divider />
+					</ListItem>
+						:
+					<ListItem button role="presentation" onClick={() => handleMenuItemClick('Post Project')}>
+						<ListItemLink href={'/project/post-project'}>
+							<ListItemText primary="Post Project" />
+						</ListItemLink>
+						<Divider />
+					</ListItem>
+				}
 			</List>
 		</div>
 	);
