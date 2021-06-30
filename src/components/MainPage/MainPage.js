@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import DisplayProjects from "../Project/DisplayProjects/DisplayProjects";
@@ -21,21 +22,34 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const MainPage = () => {
+const MainPage = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     let mounted = true;
 		if(mounted) {
-			getProjects('popular')
-				.then(data => {
-					dispatch(setProjects(data, 'popular'))
-				});
-				
-			getTopCreators()
-				.then(data => {
-					dispatch(setTopCreators(data));
-				})
+			if(props.match.params.sortBy) {
+				getProjects(props.match.params.sortBy)
+					.then(data => {
+						dispatch(setProjects(data, props.match.params.sortBy))
+					});
+					
+				getTopCreators()
+					.then(data => {
+						dispatch(setTopCreators(data));
+					})
+			}
+			else {
+				getProjects('popular')
+					.then(data => {
+						dispatch(setProjects(data, 'popular'))
+					});
+					
+				getTopCreators()
+					.then(data => {
+						dispatch(setTopCreators(data));
+					})
+			}
 		}
 		return () => {
 		  mounted = false;
@@ -58,4 +72,4 @@ const MainPage = () => {
 	);
 };
 
-export default MainPage;
+export default withRouter(MainPage);

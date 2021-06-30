@@ -36,6 +36,7 @@ function App() {
 				<AppNavbar />
 				<Switch>
 					<Route exact path="/" component={MainPage} />
+					<Route exact path="/:sortBy" component={MainPage} />
 					<Route exact path="/project/post-project" component={PostProject} />
 					<Route exact path="/project/:projectId" component={ProjectDetails} />
 					<Route exact path="/user/:userId" component={Profile} />

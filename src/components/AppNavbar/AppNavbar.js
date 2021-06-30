@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout as logoutAction } from "../../actions/accountActions";
 import { logout as logoutService } from "../../services/authServices";
 import { getProjects } from "../../services/projectService";
@@ -50,8 +50,6 @@ const AppNavbar = (props) => {
 	const classes = useStyles();
 
 	const [queryState, setQueryState] = useState('popular');
-
-	const allProjects = useSelector((state) => state.projects.projects);
 
 	useEffect(() => {
 		let mounted = true;
@@ -107,19 +105,19 @@ const AppNavbar = (props) => {
 		>
 			<List>
 				<ListItem button onClick={() => handleMenuItemClick('New')}>
-					<ListItemLink href="/">
+					<ListItemLink href="/new">
 						<ListItemText primary="New" />
 					</ListItemLink>
 					<Divider />
 				</ListItem>
 				<ListItem button onClick={() => handleMenuItemClick('Trending')}>
-					<ListItemLink href="/">
+					<ListItemLink href="/trending">
 						<ListItemText primary="Trending" />
 					</ListItemLink>
 					<Divider />
 				</ListItem>
 				<ListItem button onClick={() => handleMenuItemClick('Popular')}>
-					<ListItemLink href="/">
+					<ListItemLink href="/popular">
 						<ListItemText primary="Popular" />
 					</ListItemLink>
 					<Divider />
@@ -230,7 +228,7 @@ const AppNavbar = (props) => {
 					<React.Fragment>
 						<NavLink activeClassName="active" className="Link" to="/project/post-project">
 							<ColorButton className={classes.margin, classes.a}>
-								<a style={{textDecoration: "none", color: "black"}}>Post Project</a>
+								<span style={{textDecoration: "none", color: "black"}}>Post Project</span>
 							</ColorButton>
 						</NavLink>
 					</React.Fragment>
