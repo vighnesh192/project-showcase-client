@@ -125,6 +125,10 @@ const Profile = (props) => {
     const handleTabClick = (id) => {
       setTabState(id);
       if(id == 'projects-tab') {
+        getProjectsByUser(profile.id)
+          .then(data => {
+            dispatch(setProjects(data, 'popular'))
+          });
         document.getElementById('projects-tab').style.borderBottom = '1px solid #262626';
         document.getElementById('upvoted-tab').style.borderBottom = 'none';
       }
