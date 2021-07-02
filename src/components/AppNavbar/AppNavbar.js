@@ -217,17 +217,17 @@ const AppNavbar = (props) => {
 			</NavLink>
 			<ul>
 				<li id='new'>
-					<NavLink onClick={() => handleProjectQuery('new')} activeClassName="active" className="Link" to="/">
+					<NavLink onClick={() => handleProjectQuery('new')} activeClassName="active" className="Link" to="/new">
 						New 
 					</NavLink>
 				</li>
 				<li id='trending'>
-					<NavLink onClick={() => handleProjectQuery('trending')} activeClassName="active" className="Link" to="/">
+					<NavLink onClick={() => handleProjectQuery('trending')} activeClassName="active" className="Link" to="/trending">
 						Trending
 					</NavLink>
 				</li>
 				<li id='popular'>
-					<NavLink onClick={() => handleProjectQuery('popular')} activeClassName="active" className="Link" to="/">
+					<NavLink onClick={() => handleProjectQuery('popular')} activeClassName="active" className="Link" to="/popular">
 						Popular
 					</NavLink>
 				</li>
