@@ -13,6 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import axios from "axios";
 
@@ -100,16 +101,34 @@ function ProjectDetails(props) {
         },
         notUpvotedButton: {
             borderRadius: "10%",
-            
+            borderColor: "#E7EDF3",
             color: "#8D9CAD"
         },
         upvotedButton: {
             borderRadius: "10%",
-            borderColor: "black",
+            borderColor: "#E7EDF3",
+            backgroundColor: "#0000000a",
             color: "#8D9CAD"
         }
     }));
     const styles = useStyles();
+
+    const theme = createMuiTheme({
+		overrides: {
+		  // Style sheet name ⚛️
+		  MuiSvgIcon: {
+			// Name of the rule
+			colorPrimary: {
+			  // Some CSS
+			  color: '#8D9CAD',
+			},
+			colorSecondary: {
+			  // Some CSS
+			  color: '#5b6065',
+			},
+		  },
+		},
+	  });
 
     const imageError = () => {
         const image = document.getElementById('img');
@@ -165,10 +184,12 @@ function ProjectDetails(props) {
                         <Grid item xs={4}>
                             <Row>
                                 <Item position={"right"}>
-                                    <Button onClick={() => handleUpvoteClick(projectDetails.id)} variant="outlined" className={upvoted ? styles.upvotedButton : styles.notUpvotedButton}>
-                                        <ArrowDropUpIcon />
-                                        <Typography>{projectDetails ? projectDetails.allVotes.length : ''}</Typography>
-                                    </Button>
+                                    <ThemeProvider theme={theme}>
+                                        <Button onClick={() => handleUpvoteClick(projectDetails.id)} variant="outlined" className={upvoted ? styles.upvotedButton : styles.notUpvotedButton}>
+                                            <ArrowDropUpIcon color={upvoted ? 'secondary' : 'primary'}/>
+                                            <Typography style={{color: upvoted ? '#5b6065' : '#8D9CAD'}}>{projectDetails ? projectDetails.allVotes.length : ''}</Typography>
+                                        </Button>
+                                    </ThemeProvider>
                                 </Item>
                             </Row>
                         </Grid>

@@ -41,7 +41,8 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 	},
 	upvotedButton: {
 		borderRadius: "10%",
-		borderColor: "black",
+		borderColor: "#E7EDF3",
+		backgroundColor: "#0000000a",
 		color: "#8D9CAD"
 	}
 }));
@@ -62,7 +63,7 @@ const BasicProfile = withRouter((props) => {
 			},
 			colorSecondary: {
 			  // Some CSS
-			  color: 'black',
+			  color: '#5b6065',
 			},
 		  },
 		},
@@ -135,7 +136,7 @@ const BasicProfile = withRouter((props) => {
 					<ThemeProvider theme={theme}>
 						<Button variant="outlined" style={{cursor : 'pointer'}} className={upvoted ? styles.upvotedButton : styles.notUpvotedButton} onClick={() => handleUpvoteClick(props.projectsQueryType !== 'new' ? props.project.project : props.project.id) }>
 							<ArrowDropUpIcon color={upvoted ? 'secondary' : 'primary'}/>
-							<Typography style={{color: upvoted ? 'black' : '#8D9CAD'}}>{props.project.allVotes.length}</Typography>
+							<Typography style={{color: upvoted ? '#5b6065' : '#8D9CAD'}}>{props.project.allVotes.length}</Typography>
 						</Button>
 					</ThemeProvider>
 			</Item>

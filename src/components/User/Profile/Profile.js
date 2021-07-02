@@ -124,7 +124,7 @@ const Profile = (props) => {
 
     const handleTabClick = (id) => {
       setTabState(id);
-      if(id == 'projects-tab') {
+      if(id === 'projects-tab') {
         getProjectsByUser(profile.id)
           .then(data => {
             dispatch(setProjects(data, 'popular'))
@@ -186,7 +186,7 @@ const Profile = (props) => {
         <br />
         <div id="profile-nav-content">
           {
-            tabState == 'projects-tab' 
+            tabState === 'projects-tab' 
               ?
             <DisplayProjects from={'Profile'}/>
               :
