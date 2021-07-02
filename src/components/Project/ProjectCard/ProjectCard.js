@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { Row, Column, Item } from "@mui-treasury/components/flex";
 import { Button } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import axios from "axios";
 import { withRouter } from 'react-router-dom';
 
@@ -33,9 +34,14 @@ const useBasicProfileStyles = makeStyles(({ palette }) => ({
 		fontWeight: 500,
 		color: "#495869",
 	},
-	upvoteButton: {
+	notUpvotedButton: {
 		borderRadius: "10%",
 		borderColor: "#E7EDF3",
+		color: "#8D9CAD"
+	},
+	upvotedButton: {
+		borderRadius: "10%",
+		borderColor: "black",
 		color: "#8D9CAD"
 	}
 }));
@@ -45,7 +51,49 @@ const BasicProfile = withRouter((props) => {
 	const projectState = useSelector((state) => state.projects);
 	const dispatch = useDispatch();
 
-	console.log('PROPS', props)
+	const theme = createMuiTheme({
+		overrides: {
+		  // Style sheet name ⚛️
+		  MuiSvgIcon: {
+			// Name of the rule
+			colorPrimary: {
+			  // Some CSS
+			  color: '#8D9CAD',
+			},
+			colorSecondary: {
+			  // Some CSS
+			  color: 'black',
+			},
+		  },
+		},
+	  });
+
+	const [upvoted, setUpvoted] = useState(false);
+
+	console.log('BasicProfile PROPS', props);
+
+	useEffect(() => {
+		let mounted = true;
+		if(mounted) {
+			if(localStorage.getItem('User')) {
+				let found = props.project.allVotes.find((vote, index) => {
+						if(vote.votedBy === JSON.parse(localStorage.getItem('User')).id) {
+							return true;
+						}
+						return false
+				})
+				if(found) {
+					setUpvoted(true);
+				}
+				else {
+					setUpvoted(false)
+				}
+			}
+		}
+		return () => {
+		  mounted = false;
+		}
+	}, [projectState])
 
 	const handleUpvoteClick = (projectId) => {
 		axios.post(`/projects/vote`, { project: projectId })
@@ -84,10 +132,12 @@ const BasicProfile = withRouter((props) => {
 				<Typography className={styles.name}>{props.profile ? props.profile.username ? props.profile.username : props.profile.first_name + " " + props.profile.last_name : ""}</Typography>
 			</Item>
 			<Item position={"right"}>
-				<Button variant="outlined" style={{cursor : 'pointer'}} className={styles.upvoteButton} onClick={() => handleUpvoteClick(props.projectsQueryType !== 'new' ? props.project.project : props.project.id) }>
-					<ArrowDropUpIcon />
-					<Typography>{props.project.allVotes.length}</Typography>
-				</Button>
+					<ThemeProvider theme={theme}>
+						<Button variant="outlined" style={{cursor : 'pointer'}} className={upvoted ? styles.upvotedButton : styles.notUpvotedButton} onClick={() => handleUpvoteClick(props.projectsQueryType !== 'new' ? props.project.project : props.project.id) }>
+							<ArrowDropUpIcon color={upvoted ? 'secondary' : 'primary'}/>
+							<Typography style={{color: upvoted ? 'black' : '#8D9CAD'}}>{props.project.allVotes.length}</Typography>
+						</Button>
+					</ThemeProvider>
 			</Item>
 		</Row>
 	);

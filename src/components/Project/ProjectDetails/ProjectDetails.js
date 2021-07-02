@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -26,25 +26,39 @@ function ProjectDetails(props) {
 
     const dispatch = useDispatch();
 
+    const projectDetails = useSelector((state) => state.projects.projectDetails);
+    const allProjects = useSelector((state) => state.projects.projects);
+    const projectsQueryType = useSelector((state) => state.projects.queryType); 
+
+    const [upvoted, setUpvoted] = useState(false);
+
     useEffect(() => {
         let mounted = true;
         if(mounted) {
             getProjectDetails(props.match.params.projectId)
             .then((data) => {
 				dispatch(setProjectDetails(allProjects, projectsQueryType, data));
+                if(localStorage.getItem('User')) {
+                    let found = data.allVotes.find((vote, index) => {
+                            if(vote.votedBy === JSON.parse(localStorage.getItem('User')).id) {
+                                return true;
+                            }
+                            return false;
+                    })
+                    if(found) {
+                        setUpvoted(true);
+                    }
+                    else {
+                        setUpvoted(false);
+                    }
+                }
             })
 			.catch((err) => console.log('ERROR', err))
         }
         return () => {
           mounted = false;
         }
-    }, []);
-
-    const projectDetails = useSelector((state) => state.projects.projectDetails);
-    const allProjects = useSelector((state) => state.projects.projects);
-    const projectsQueryType = useSelector((state) => state.projects.queryType);    
-
-    console.log('PROJECT DETAILS', projectDetails);
+    }, [upvoted]);   
 
     const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/project' : 'https://projstemp.herokuapp.com/project';
 
@@ -84,10 +98,18 @@ function ProjectDetails(props) {
         inline: {
             display: 'inline',
         },
+        notUpvotedButton: {
+            borderRadius: "10%",
+            
+            color: "#8D9CAD"
+        },
+        upvotedButton: {
+            borderRadius: "10%",
+            borderColor: "black",
+            color: "#8D9CAD"
+        }
     }));
     const styles = useStyles();
-
-    console.log('PROJECT DETAILS', projectDetails);
 
     const imageError = () => {
         const image = document.getElementById('img');
@@ -97,10 +119,20 @@ function ProjectDetails(props) {
     const handleUpvoteClick = (projectId) => {
 		axios.post(`/projects/vote`, { project: projectId })
 			.then((res) => {
-                console.log('RESPONSE', res);
                 getProjectDetails(projectId)
                     .then((data) => {
-                        console.log('DATA', data)
+                        let found = data.allVotes.find((vote, index) => {
+                            if(vote.votedBy === JSON.parse(localStorage.getItem('User')).id) {
+                                return true;
+                            }
+                            return false;
+                        })
+                        if(found) {
+                            setUpvoted(true);
+                        }
+                        else {
+                            setUpvoted(false);
+                        }
                         dispatch(setProjectDetails(allProjects, projectsQueryType, data));
                     })
 			})
@@ -133,7 +165,7 @@ function ProjectDetails(props) {
                         <Grid item xs={4}>
                             <Row>
                                 <Item position={"right"}>
-                                    <Button onClick={() => handleUpvoteClick(projectDetails.id)} variant="outlined" >
+                                    <Button onClick={() => handleUpvoteClick(projectDetails.id)} variant="outlined" className={upvoted ? styles.upvotedButton : styles.notUpvotedButton}>
                                         <ArrowDropUpIcon />
                                         <Typography>{projectDetails ? projectDetails.allVotes.length : ''}</Typography>
                                     </Button>
