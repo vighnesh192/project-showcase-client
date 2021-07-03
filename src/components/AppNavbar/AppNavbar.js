@@ -84,11 +84,7 @@ const AppNavbar = (props) => {
 	};
 
 	const handleMenuItemClick = (item) => {
-		if(item === 'Creators') {
-			document.getElementById('top-creators-list').style.display = 'block';
-			document.getElementById('display-projects').style.display = 'none';
-		}
-		else if(item === 'New' || item === 'Trending' || item === 'Popular') {
+		if(item === 'New' || item === 'Trending' || item === 'Popular') {
 			document.getElementById('top-creators-list').style.display = 'none';
 			document.getElementById('display-projects').style.display = 'block';
 		}
@@ -123,7 +119,7 @@ const AppNavbar = (props) => {
 					<Divider />
 				</ListItem>
 				<ListItem button role="presentation" onClick={() => handleMenuItemClick('Creators')}>
-					<ListItemLink>
+					<ListItemLink href="/creators">
 						<ListItemText primary="Creators" />
 					</ListItemLink>
 					<Divider />

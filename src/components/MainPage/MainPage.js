@@ -29,15 +29,30 @@ const MainPage = (props) => {
     let mounted = true;
 		if(mounted) {
 			if(props.match.params.sortBy) {
-				getProjects(props.match.params.sortBy)
-					.then(data => {
-						dispatch(setProjects(data, props.match.params.sortBy))
-					});
-					
-				getTopCreators()
-					.then(data => {
-						dispatch(setTopCreators(data));
-					})
+				if(props.match.params.sortBy === 'creators') {
+					document.getElementById('top-creators-list').style.display = 'block';
+					document.getElementById('display-projects').style.display = 'none';
+					getProjects(props.match.params.sortBy)
+						.then(data => {
+							dispatch(setProjects(data, props.match.params.sortBy))
+						});
+						
+					getTopCreators()
+						.then(data => {
+							dispatch(setTopCreators(data));
+						})
+				}
+				else {
+					getProjects(props.match.params.sortBy)
+						.then(data => {
+							dispatch(setProjects(data, props.match.params.sortBy))
+						});
+						
+					getTopCreators()
+						.then(data => {
+							dispatch(setTopCreators(data));
+						})
+				}
 			}
 			else {
 				getProjects('popular')
