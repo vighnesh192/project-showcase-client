@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom';
+
 import { logout as logoutAction } from "../../actions/accountActions";
 import { logout as logoutService } from "../../services/authServices";
 import { getProjects } from "../../services/projectService";
@@ -47,6 +49,8 @@ function ListItemLink(props) {
 
 //Main Navbar function
 const AppNavbar = (props) => {
+	const history = useHistory();
+
 	const classes = useStyles();
 
 	const [queryState, setQueryState] = useState('popular');
@@ -54,13 +58,15 @@ const AppNavbar = (props) => {
 	useEffect(() => {
 		let mounted = true;
 		if(mounted) {
-			document.getElementById(queryState).style.borderBottom = '1px solid #262626';
-			document.getElementById(queryState).style.fontWeight = '500';
+			if(props.match.params.sortBy) {
+				document.getElementById(queryState).style.borderBottom = '1px solid #262626';
+				document.getElementById(queryState).style.fontWeight = '500';
+			}
 		}
 		return () => {
 			mounted = false;
 		}
-	}, [])
+	}, [ props.match.params.sortBy])
 
 	const [state, setState] = React.useState({
 		top: false,
@@ -165,8 +171,19 @@ const AppNavbar = (props) => {
 	const handleProjectQuery = (query) => {
 		setQueryState(query);
 		//	@TODO  Try to find a better way to do this:-
-		document.getElementById(query).style.borderBottom = '1px solid #262626';
-		document.getElementById(query).style.fontWeight = '500';
+		if(query !== 'logo') {
+			document.getElementById(query).style.borderBottom = '1px solid #262626';
+			document.getElementById(query).style.fontWeight = '500';
+		}
+		if(query === 'logo') {
+			document.getElementById('new').style.borderBottom = 'none';
+			document.getElementById('new').style.fontWeight = '400';
+			document.getElementById('trending').style.borderBottom = 'none';
+			document.getElementById('trending').style.fontWeight = '400';
+			document.getElementById('popular').style.borderBottom = 'none';
+			document.getElementById('popular').style.fontWeight = '400';
+			history.push("/");
+		}
 		if(query === 'popular') {
 			document.getElementById('new').style.borderBottom = 'none';
 			document.getElementById('new').style.fontWeight = '400';
@@ -208,7 +225,7 @@ const AppNavbar = (props) => {
 
 	return (
 		<nav>
-			<NavLink id="logo" to="/" className="Link">
+			<NavLink onClick={() => handleProjectQuery('logo')} id="logo" to="/" className="Link">
 				<h2>PS</h2>
 			</NavLink>
 			<ul>
