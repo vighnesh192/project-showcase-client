@@ -1,0 +1,158 @@
+#home {
+    height: 90.4vh;
+    width: 100vw;
+    display: flex;
+}
+
+#home-page {
+    margin-top: 23vh;
+    height: 77vh;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#home-title {
+    font-size: 2.7rem;
+}
+
+#home-description {
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+}
+
+#left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: center;
+    height: 350px;
+    margin-bottom: 100px;
+    padding-top: 20px;
+}
+
+#left #desc p {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    padding-right: 3.5rem;
+}
+
+#explore {
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: 0;
+    width: 9.5rem;
+    height: 3rem;
+    background: #3F3D56;
+    border-radius: 10px;
+    border-style: none;
+    color: #e2f1f8;
+    font-size: 1.3rem;
+    outline: none;
+}
+
+#explore:hover {
+    cursor: pointer;
+}
+
+#right {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    height: 350px;
+    margin-bottom: 100px;
+}
+
+#right img {
+    width: 100%;
+    height: 100%;
+    padding-top: auto;
+    padding-bottom: auto;
+    margin-left: 30px;
+}
+
+#main-ill {
+    width: 100%;
+}
+
+@media(max-width: 768px) {
+    #home {
+        padding: 15vw;
+    }
+
+    #left #desc h1 {
+        font-size: 1.9rem;
+    }
+
+    #left #desc p {
+        font-size: 1.2rem;
+        margin-top: 2rem;
+    }
+
+    #explore {
+        margin-right: auto;
+        width: 9.5rem;
+        height: 3.2rem;
+        background: #3F3D56;
+        border-radius: 10px;
+        border-style: none;
+        color: #e2f1f8;
+        font-size: 1.2rem;
+        outline: none;
+    }
+}
+
+@media(max-width: 425px) {
+    #home-page {
+        font-size: 1rem;
+        margin-top: 14vh;
+    }
+
+    #home-page-grid {
+        flex-direction: column;
+    }
+
+    #home-page-grid #left{
+        order: 2;
+        margin-bottom: 0;
+        height: 100%;
+    }
+    
+    #home-page-grid #right{
+        order: 1;
+        height: 100%;
+        margin-bottom: 1rem;
+    }
+
+    #home-page-grid #right #main-ill {
+        margin-left: 0;
+    }
+
+    #explore {
+        font-size: 1.05rem;
+        width: 8.8rem;
+        height: 2.85rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    #home-title {
+        font-size: 2.4rem;
+    }
+    
+    #home-description {
+        font-size: 1rem;
+        margin-top: 0.3rem;
+    }
+}
+
+@media(min-width: 768px) {
+    #left #desc h1 {
+        font-size: 48px;
+        line-height: 3.5rem;
+    }
+
+    #home {        
+        padding: 5% 10% 0;
+    }
+}

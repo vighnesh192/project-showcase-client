@@ -8,6 +8,7 @@ import { login } from "./actions/accountActions";
 import PostProject from "./components/Project/PostProject/PostProject";
 import ProjectDetails from "./components/Project/ProjectDetails/ProjectDetails";
 import Profile from "./components/User/Profile/Profile";
+import Home from "./components/Home/Home";
 
 function App() {
 	const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function App() {
 			<div className="App">
 				<AppNavbar />
 				<Switch>
-					<Route exact path="/" component={MainPage} />
+					<Route exact path="/" component={Home} />
 					<Route exact path="/:sortBy" component={MainPage} />
 					<Route exact path="/project/post-project" component={PostProject} />
 					<Route exact path="/project/:projectId" component={ProjectDetails} />
