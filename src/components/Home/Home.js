@@ -5,7 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from '@material-ui/core/Typography';
 
-import './Home.css'
+import './Home.css';
+import MusicCardDemo from '../Layouts/Card';
+
+import showcase from '../../assets/images/undraw_features_overview_jg7a.svg';
+import upvote from '../../assets/images/undraw_Upvote_re_qn2k.svg';
+import profile from '../../assets/images/undraw_online_cv_qy9w (1).svg';
 
 function Home() {
 
@@ -28,27 +33,14 @@ function Home() {
     }
 
     return (
-        // <div id="home">
-        //     <div id="left">
-        //         <div id="desc">
-        //             <h1>Platform to showcase your projects</h1>
-        //             <p>Signup, upload your project, and race to the top of the leaderboard.</p>
-        //         </div>                
-        //         <button id="explore" onClick={handleClick}>Explore</button>
-        //     </div>
-
-        //     <div id="right">
-        //         <img src={require("../../assets/images/undraw_profile_details_f8b7.svg").default} alt="Illustration" />
-        //     </div>
-        // </div>
         <div className={classes.root} id="home-page">
 			<Grid container spacing={2} id='home-page-grid'>
 				<Grid style={{display: 'flex', flexDirection: 'column'}} item md={6} id="left">
                     <Typography id="home-title" variant="h3" gutterBottom>
-                        Platform to showcase your projects
+                        Showcase and Discover Projects
                     </Typography>
                     <Typography id="home-description" variant="body1" gutterBottom>
-                        Signup, upload your project, and race to the top of the leaderboard.
+                        A website for people to showcase their projects, discover projects by peers, get upvoted and build a project-centric profile.
                     </Typography>
                     <button id="explore" onClick={handleClick}>Explore</button>
 				</Grid>
@@ -56,6 +48,19 @@ function Home() {
                     <img id="main-ill" src={require("../../assets/images/undraw_profile_details_f8b7.svg").default} alt="Illustration" />
 				</Grid>
 			</Grid>
+
+            <Typography id="hiw" variant="h4">How It Works?</Typography>
+            <Grid container spacing={2} id="hiw-cards">
+                <Grid item md={4}>
+                    <MusicCardDemo heading="Showcase" body="Let the community know about your projects and progress!" image={showcase}/>
+                </Grid>
+                <Grid item md={4}>
+                    <MusicCardDemo heading="Grow" body="Get upvoted and receive feedbacks about your projects" image={upvote}/>
+                </Grid>
+                <Grid item md={4}>
+                    <MusicCardDemo heading="Profile" body="Have all your projects at one place and race to become a top creator" image={profile}/>
+                </Grid>
+            </Grid>
 		</div>
     )
 }
