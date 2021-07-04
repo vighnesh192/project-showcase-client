@@ -55,7 +55,7 @@ function Home() {
                     <MusicCardDemo heading="Showcase" body="Let the community know about your projects and progress!" image={showcase}/>
                 </Grid>
                 <Grid item md={4}>
-                    <MusicCardDemo heading="Grow" body="Get upvoted and receive feedbacks about your projects" image={upvote}/>
+                    <MusicCardDemo heading="Grow" body="Get upvoted and receive feedbacks for your project" image={upvote}/>
                 </Grid>
                 <Grid item md={4}>
                     <MusicCardDemo heading="Profile" body="Have all your projects at one place and race to become a top creator" image={profile}/>
