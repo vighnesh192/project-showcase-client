@@ -2,14 +2,31 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
 import AdditionalDetails from './AdditionalDetails/AdditionalDetails';
 import PrimaryDetails from './PrimaryDetails/PrimaryDetails';
 import { getProjectDetails } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
 
+import './PostProject.css'
+
 const axios = require("axios");
 
 const PostProject = (props) => {
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: "center",
+            color: theme.palette.text.secondary,
+        },
+    }));
+    const classes = useStyles();
+
     const [step, setStep] = useState(1);
     const dispatch = useDispatch();
 
@@ -100,23 +117,41 @@ const PostProject = (props) => {
     switch(step) {
         case 1:
             return(
-                <PrimaryDetails 
-                    nextStep = {nextStep}
-                    userDetails = {userDetails}
-                    handleChange = {handleChange}
-                    onImageChange = {onImageChange}
-                    imageDetails = {imageState} 
-                />
+                <div className={classes.root} id="post-project-page">
+                    <Grid container spacing={2} id='post-project-grid'>
+                        <Grid item md={6} id="post-project-left">
+                            <PrimaryDetails 
+                                nextStep = {nextStep}
+                                userDetails = {userDetails}
+                                handleChange = {handleChange}
+                                onImageChange = {onImageChange}
+                                imageDetails = {imageState} 
+                            />
+                        </Grid>
+                        <Grid item md={6} id="post-project-right">
+                            <img id="post-project-ill" src={require("../../../assets/images/undraw_uploading_go67.svg").default} alt="Illustration" />
+                        </Grid>
+                    </Grid>
+                </div>
             );
         case 2:
             return(
-                <AdditionalDetails
-                    nextStep = {nextStep}
-                    prevStep = {prevStep}
-                    userDetails = {userDetails}                
-                    handleChange = {handleChange} 
-                    postProject = {postProject}
-                />
+                <div className={classes.root} id="post-project-page">
+                    <Grid container spacing={2} id='post-project-grid'>
+                        <Grid item md={6} id="post-project-left">
+                            <AdditionalDetails
+                                nextStep = {nextStep}
+                                prevStep = {prevStep}
+                                userDetails = {userDetails}                
+                                handleChange = {handleChange} 
+                                postProject = {postProject}
+                            />
+                        </Grid>
+                        <Grid item md={6} id="post-project-right">
+                            <img id="post-project-ill" src={require("../../../assets/images/undraw_uploading_go67.svg").default} alt="Illustration" />
+                        </Grid>
+                    </Grid>
+                </div>
             );
         // case 3:
         //     return(
