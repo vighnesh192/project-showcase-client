@@ -83,6 +83,7 @@ function ProjectDetails(props) {
         image: {
             height: "100%",
             width: "100%",
+            maxHeight: "42vh",
             borderRadius: 8
         },
         noImage: {
@@ -90,7 +91,8 @@ function ProjectDetails(props) {
         },
         box: {
             minWidth: "52vw",
-            minHeight: "42vh"
+            minHeight: "42vh",
+            maxHeight: "42vh"
         },
         root: {
             width: '100%',
