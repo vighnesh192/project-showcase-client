@@ -80,11 +80,11 @@ function Home() {
                 <Link href="https://github.com/vighnesh192" target="_blank" >
                     <GitHubIcon id="github"/> 
                 </Link>
-                <Link id="twitter" href="https://twitter.com/vighnesh192" target="_blank" >
-                    <TwitterIcon /> 
+                <Link href="https://www.linkedin.com/in/vighnesh-kulkarni-vk192/" target="_blank" >
+                    <LinkedInIcon id="linkedin"/>
                 </Link>
-                <Link id="linkedin" href="https://www.linkedin.com/in/vighnesh-kulkarni-vk192/" target="_blank" >
-                    <LinkedInIcon />
+                <Link href="https://twitter.com/vighnesh192" target="_blank" >
+                    <TwitterIcon id="twitter"/> 
                 </Link>
             </div>
         </div>
