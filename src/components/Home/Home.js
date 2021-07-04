@@ -7,6 +7,10 @@ import Typography from '@material-ui/core/Typography';
 
 import './Home.css';
 import MusicCardDemo from '../Layouts/Card';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import Link from '@material-ui/core/Link';
 
 import showcase from '../../assets/images/undraw_features_overview_jg7a.svg';
 import upvote from '../../assets/images/undraw_Upvote_re_qn2k.svg';
@@ -23,6 +27,9 @@ function Home() {
             textAlign: "center",
             color: theme.palette.text.secondary,
         },
+        footerIcons: {
+            color: "#000"
+        }
     }));
     const classes = useStyles();
 
@@ -33,6 +40,7 @@ function Home() {
     }
 
     return (
+        <React.Fragment>
         <div className={classes.root} id="home-page">
 			<Grid container spacing={2} id='home-page-grid'>
 				<Grid style={{display: 'flex', flexDirection: 'column'}} item md={6} id="left">
@@ -55,13 +63,32 @@ function Home() {
                     <MusicCardDemo heading="Showcase" body="Let the community know about your projects and progress!" image={showcase}/>
                 </Grid>
                 <Grid item md={4}>
-                    <MusicCardDemo heading="Grow" body="Get upvoted and receive feedbacks for your project" image={upvote}/>
+                    <MusicCardDemo heading="Grow" body="Get upvotes and feedback for your project" image={upvote}/>
                 </Grid>
                 <Grid item md={4}>
                     <MusicCardDemo heading="Profile" body="Have all your projects at one place and race to become a top creator" image={profile}/>
                 </Grid>
             </Grid>
+
+            
 		</div>
+        <div id="footer">
+            <Typography id="footer-text" variant="caption">
+                For the community, by Vighnesh Kulkarni  
+            </Typography>
+            <div id="footer-icons">
+                <Link href="https://github.com/vighnesh192" target="_blank" >
+                    <GitHubIcon id="github"/> 
+                </Link>
+                <Link id="twitter" href="https://twitter.com/vighnesh192" target="_blank" >
+                    <TwitterIcon /> 
+                </Link>
+                <Link id="linkedin" href="https://www.linkedin.com/in/vighnesh-kulkarni-vk192/" target="_blank" >
+                    <LinkedInIcon />
+                </Link>
+            </div>
+        </div>
+        </React.Fragment>
     )
 }
 
