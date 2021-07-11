@@ -54,9 +54,8 @@ function PrimaryDetails (props) {
     const [image, setImage] = useState({image: '', imageDetails: ''})
 
     const onImageChange = (event) => {
-      console.log('EVENT', event)
       if (event.target.files && event.target.files[0]) {
-        if(event.target.files[0].size < 250) {
+        if((event.target.files[0].size / 1000) < 250) {
           props.onImageChange(event);
           let reader = new FileReader();
           reader.onload = (e) => {
