@@ -56,7 +56,7 @@ function PrimaryDetails (props) {
     const onImageChange = (event) => {
       console.log('EVENT', event)
       if (event.target.files && event.target.files[0]) {
-        // if(event.target.files[0].size < 500) {
+        if(event.target.files[0].size < 250) {
           props.onImageChange(event);
           let reader = new FileReader();
           reader.onload = (e) => {
@@ -64,8 +64,8 @@ function PrimaryDetails (props) {
             document.getElementById('done-icon').style.display = 'block'
           };
           reader.readAsDataURL(event.target.files[0]);
-        // }
-        // else alert('File size cannot be greater than 500KB');
+        }
+        else alert('File size cannot be greater than 250KB');
       }
     }
 
@@ -76,6 +76,7 @@ function PrimaryDetails (props) {
     const { tagline, description, title } = props.userDetails;
     // const { image } = props.imageDetails.image;
 
+    //  @Desc useRef doesn't cause re-render, useState does
     const imageInput = useRef( null );
   
     return (
