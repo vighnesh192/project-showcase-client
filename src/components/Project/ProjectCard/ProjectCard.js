@@ -246,9 +246,9 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 						<Box minHeight={160} maxHeight={160} bgcolor={"#F4F7FA"} borderRadius={8}>
 							{
 								projectsQueryType !== "new" ? 
-								<img id={`project-image-${props.project.project}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.project)}} alt=""></img> 
+								<img id={`project-image-${props.project.project}`} className={styles.image} src={process.env.NODE_ENV === 'production' ? props.project.image.url : `/${props.project.image.url}`} onError={() => {imageError(props.project.project)}} alt=""></img> 
 								:
-								<img id={`project-image-${props.project.id}`} className={styles.image} src={`/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 						
+								<img id={`project-image-${props.project.id}`} className={styles.image} src={process.env.NODE_ENV === 'production' ? props.project.image.url : `/${props.project.image.url}`} onError={() => {imageError(props.project.id)}} alt=""></img> 						
 							}	
 						</Box>
 					}

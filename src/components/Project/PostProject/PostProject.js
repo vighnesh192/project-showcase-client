@@ -62,15 +62,7 @@ const PostProject = (props) => {
           setImageState({
             image: event.target.files[0]
           });
-        //   reader.onload = (e) => {
-        //     setImageState({
-        //         image: e.target.result
-        //     });
-        //     console.log('IMAGE:-', reader)
-        //     console.log('FILE', event.target.files[0])
-        //   };
           reader.readAsDataURL(event.target.files[0]);
-          console.log(imageState);
         }
     }
 
@@ -153,13 +145,6 @@ const PostProject = (props) => {
                     </Grid>
                 </div>
             );
-        // case 3:
-        //     return(
-        //         <Confirm 
-        //         prevStep = {prevStep}
-        //         userDetails = {userDetails} 
-        //         />
-        //     );
         default:
             (console.log('This is a multi-step form built with React.'))    
     }

@@ -173,7 +173,7 @@ function ProjectDetails(props) {
                         {
                             projectDetails 
                             ?
-                            <img id="img" className={styles.image} src={`/${projectDetails ? projectDetails.image ? projectDetails.image.url : '' : ''}`}  alt="" onError={() => {imageError()}}></img>
+                            <img id="img" className={styles.image} src={process.env.NODE_ENV === 'production' ? projectDetails.image.url : `/${projectDetails ? projectDetails.image ? projectDetails.image.url : '' : ''}`}  alt="" onError={() => {imageError()}}></img>
                             :
                             ''
                         }
