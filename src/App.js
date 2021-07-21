@@ -12,8 +12,9 @@ import Home from "./components/Home/Home";
 import useGaTracker from './useGaTracker'
 
 function App() {
+	console.log('WINDOW:---' ,window)
 	useGaTracker();
-	
+
 	const dispatch = useDispatch();
 
 	const [loggedIn, setLoggedIn] = useState(false)
@@ -35,18 +36,16 @@ function App() {
 	}, [loggedIn])
 
 	return (
-		<Router>
-			<div className="App">
-				<AppNavbar />
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/:sortBy" component={MainPage} />
-					<Route exact path="/project/post-project" component={PostProject} />
-					<Route exact path="/project/:projectId" component={ProjectDetails} />
-					<Route exact path="/user/:userId" component={Profile} />
-				</Switch>
-			</div>
-		</Router>
+		<div className="App">
+			<AppNavbar />
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/:sortBy" component={MainPage} />
+				<Route exact path="/project/post-project" component={PostProject} />
+				<Route exact path="/project/:projectId" component={ProjectDetails} />
+				<Route exact path="/user/:userId" component={Profile} />
+			</Switch>
+		</div>
 	);
 }
 

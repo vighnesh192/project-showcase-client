@@ -4,6 +4,7 @@ import ReactGA from "react-ga";
 
 const useGaTracker = () => {
     const location = useLocation();
+    console.log(location)
     const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
