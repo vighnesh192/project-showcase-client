@@ -48,7 +48,7 @@ const Profile = (props) => {
       return () => {
         mounted = false;
       }
-    }, []);
+    }, [props.match.params.userId]);
 
     const profile = useSelector((state) => state.users.profile);
 
