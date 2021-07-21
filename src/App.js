@@ -9,8 +9,11 @@ import PostProject from "./components/Project/PostProject/PostProject";
 import ProjectDetails from "./components/Project/ProjectDetails/ProjectDetails";
 import Profile from "./components/User/Profile/Profile";
 import Home from "./components/Home/Home";
+import useGaTracker from './useGaTracker'
 
 function App() {
+	useGaTracker();
+	
 	const dispatch = useDispatch();
 
 	const [loggedIn, setLoggedIn] = useState(false)
