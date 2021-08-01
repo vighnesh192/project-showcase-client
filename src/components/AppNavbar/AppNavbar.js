@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	a: {
 		textDecoration: "none"
+	},
+	avatarButton:{
+		paddingLeft: '20px',
+		paddingRight: '0px'
 	}
 }));
 
@@ -224,138 +228,178 @@ const AppNavbar = (props) => {
 	const url = process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'https://projstemp.herokuapp.com';
 
 	return (
-		<nav>
-			<NavLink onClick={() => handleProjectQuery('logo')} id="logo" to="/" className="Link">
-				<h2>PS</h2>
-			</NavLink>
-			<ul>
-				<li id='new'>
-					<NavLink onClick={() => handleProjectQuery('new')} activeClassName="active" className="Link" to="/new">
-						New 
-					</NavLink>
-				</li>
-				<li id='trending'>
-					<NavLink onClick={() => handleProjectQuery('trending')} activeClassName="active" className="Link" to="/trending">
-						Trending
-					</NavLink>
-				</li>
-				<li id='popular'>
-					<NavLink onClick={() => handleProjectQuery('popular')} activeClassName="active" className="Link" to="/popular">
-						Popular
-					</NavLink>
-				</li>
-			</ul>
-			<div id="nav-buttons">
-				{
-					!localStorage.getItem('User') ? 
-					<React.Fragment>
-						<ColorButton className={classes.margin, classes.a}>
-							<a style={{textDecoration: "none", color: "black"}} href={`${url}/auth/google`}>Login</a>
-						</ColorButton>
-					</React.Fragment>
-						:
-					<React.Fragment>
-						<NavLink activeClassName="active" className="Link" to="/project/post-project">
-							<ColorButton className={classes.margin, classes.a}>
-								<span style={{textDecoration: "none", color: "black"}}>Post Project</span>
-							</ColorButton>
-						</NavLink>
-					</React.Fragment>
-				}
-			</div>
-			<div id="menu">
-				{["right"].map((anchor) => (
-					<React.Fragment key={anchor}>
-						<Button onClick={toggleDrawer(anchor, true)}>
-							<IconButton
-								className={classes.menuButton}
-								color="#434E5C"
-								aria-label="menu"
-							>
-								<MenuIcon style={{color: grey[800]}}/>
-							</IconButton>
-						</Button>
-						<Drawer
-							anchor={anchor}
-							open={state[anchor]}
-							onClose={toggleDrawer(anchor, false)}
-							onClick={toggleDrawer(anchor, false)}
-						>
-							{list(anchor)}
-						</Drawer>
-					</React.Fragment>
-				))}
-			</div>
-			{localStorage.getItem('User') ? 
-				<Toolbar>
-					<div>
-						{JSON.parse(localStorage.getItem('User')).profilePic ? 
-							<React.Fragment>
-								<IconButton
-									aria-label="account of current user"
-									aria-controls="menu-appbar"
-									aria-haspopup="true" 
-									onClick={handleMenu}
-								>
-									<Avatar src={JSON.parse(localStorage.getItem('User')).profilePic.url} />
-								</IconButton>
-								<Menu
-									id="menu-appbar"
-									anchorEl={anchorEl}
-									anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-									}}
-									keepMounted
-									transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-									}}
-									open={open}
-									onClose={handleClose}
-								>
-									<MenuItem onClick={() => handleProfileClick()}>Profile</MenuItem>
-									<MenuItem onClick={() => Logout()}>Logout</MenuItem>
-								</Menu>
-							</React.Fragment>
-							:
-							<React.Fragment>
-								<IconButton
-									aria-label="account of current user"
-									aria-controls="menu-appbar"
-									aria-haspopup="true"
-									onClick={handleMenu}
-									color="inherit"
-								>
-									<AccountCircle />
-								</IconButton>
-								<Menu
-									id="menu-appbar"
-									anchorEl={anchorEl}
-									anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-									}}
-									keepMounted
-									transformOrigin={{
-									vertical: 'top',
-									horizontal: 'right',
-									}}
-									open={open}
-									onClose={handleClose}
-								>
-									<MenuItem onClick={() => handleProfileClick()}>Profile</MenuItem>
-									<MenuItem onClick={() => Logout()}>Logout</MenuItem>
-								</Menu>
-							</React.Fragment>
-						}
-					</div>
-				</Toolbar>
-				:
-				<React.Fragment></React.Fragment>
-			}
-		</nav>
-	);
+    <nav>
+      <NavLink
+        onClick={() => handleProjectQuery("logo")}
+        id="logo"
+        to="/"
+        className="Link"
+      >
+        <h2>PS</h2>
+      </NavLink>
+      <ul>
+        <li id="new">
+          <NavLink
+            onClick={() => handleProjectQuery("new")}
+            activeClassName="active"
+            className="Link"
+            to="/new"
+          >
+            New
+          </NavLink>
+        </li>
+        <li id="trending">
+          <NavLink
+            onClick={() => handleProjectQuery("trending")}
+            activeClassName="active"
+            className="Link"
+            to="/trending"
+          >
+            Trending
+          </NavLink>
+        </li>
+        <li id="popular">
+          <NavLink
+            onClick={() => handleProjectQuery("popular")}
+            activeClassName="active"
+            className="Link"
+            to="/popular"
+          >
+            Popular
+          </NavLink>
+        </li>
+      </ul>
+      <div id="nav-buttons">
+        {!localStorage.getItem("User") ? (
+          <React.Fragment>
+            <ColorButton className={(classes.margin, classes.a)}>
+              <a
+                style={{ textDecoration: "none", color: "black" }}
+                href={`${url}/auth/google`}
+              >
+                Login
+              </a>
+            </ColorButton>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <NavLink
+              activeClassName="active"
+              className="Link"
+              to="/project/post-project"
+            >
+              <ColorButton className={(classes.margin, classes.a)}>
+                <span style={{ textDecoration: "none", color: "black" }}>
+                  Post Project
+                </span>
+              </ColorButton>
+            </NavLink>
+          </React.Fragment>
+        )}
+      </div>
+      <div id="menu">
+        {["right"].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>
+              <IconButton
+                className={classes.menuButton}
+                color="#434E5C"
+                aria-label="menu"
+              >
+                <MenuIcon style={{ color: grey[800] }} />
+              </IconButton>
+            </Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onClick={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
+      </div>
+      {localStorage.getItem("User") ? (
+        <div>
+          <div>
+            {JSON.parse(localStorage.getItem("User")).profilePic ? (
+              <React.Fragment>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  className={classes.avatarButton}
+                  onClick={handleMenu}
+                >
+                  <Avatar
+                    src={
+                      JSON.parse(localStorage.getItem("User")).profilePic.url
+                    }
+                  />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={() => handleProfileClick()}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => Logout()}>Logout</MenuItem>
+                </Menu>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  className={classes.avatarButton}
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={() => handleProfileClick()}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => Logout()}>Logout</MenuItem>
+                </Menu>
+              </React.Fragment>
+            )}
+          </div>
+        </div>
+      ) : (
+        <React.Fragment></React.Fragment>
+      )}
+    </nav>
+  );
 }
 
 export default withRouter(AppNavbar);
