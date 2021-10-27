@@ -17,11 +17,13 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import axios from "axios";
 
-import Disqus from "disqus-react";
+// import Disqus from "disqus-react";
 
 import "./ProjectDetails.css";
 import { getProjectDetails } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
+
+// import CommentSection from "../CommentSection/CommentSection"
 
 function ProjectDetails(props) {
 
@@ -81,18 +83,18 @@ function ProjectDetails(props) {
             },
         },
         image: {
-            height: "100%",
             width: "100%",
-            maxHeight: "42vh",
+            minHeight: "52vh",
+            maxHeight: "100vh",
             borderRadius: 8
         },
         noImage: {
             display: 'none'
         },
         box: {
-            minWidth: "52vw",
+            minWidth: "20vw",
             minHeight: "42vh",
-            maxHeight: "42vh"
+            maxHeight: "100vh"
         },
         root: {
             width: '100%',
@@ -232,10 +234,11 @@ function ProjectDetails(props) {
             <hr style={{ borderTop: "1px" }}/>
             <br />
             <br />
-            <Disqus.DiscussionEmbed
+            {/* <Disqus.DiscussionEmbed
                 shortname={disqusShortname}
                 config={disqusConfig}
-            />
+            /> */}
+            
         </div>
     )
 }
