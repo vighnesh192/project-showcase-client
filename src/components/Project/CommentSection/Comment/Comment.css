@@ -1,0 +1,33 @@
+.comment {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.MuiAvatar-img .comment-avatar {
+    height: 85%;
+    width: 85%;
+    border-radius: 50%;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5rem;
+}
+
+.comment-body {
+    font-size: 0.9rem;
+}
+
+.reply {
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    color: #0000008a;
+    font-weight: 500;
+    width: 2rem;
+}
+
+.reply:hover {
+    cursor: pointer;
+    color: #000000a3;
+}

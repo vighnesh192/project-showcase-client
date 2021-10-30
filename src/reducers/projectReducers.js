@@ -7,22 +7,33 @@ const initialState = {
 const projectReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET':
-            state = { 
+            return {
+                ...state,
                 projects: action.payload.projects,
-                queryType: action.payload.queryType 
-            };
-            return state;
+                queryType: action.payload.queryType
+            }
         
         case 'SET_PROJECT_DETAILS':
-            state = { 
+            return {
+                ...state,
                 projects: action.payload.projects,
                 queryType: action.payload.queryType,
                 projectDetails: action.payload.projectDetails
-            };
-            return state;
+            }
+
+        case 'POST_COMMENT_SUCCESS':
+            return {
+                ...state,
+                projectDetails: {
+                    ...state.projectDetails,
+                    comments: [...state.projectDetails.comments, action.payload]
+                }
+            }
 
         default:
-            return state;
+            return {
+                ...state
+            };
     }
 }
 

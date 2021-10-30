@@ -6,21 +6,23 @@ const initialState = {
 const accountReducer = (state = initialState, action) => {
     switch(action.type) {
         case "LOGIN":
-            state = {
+            localStorage.setItem('User', JSON.stringify(action.payload));
+            return {
+                ...state,
                 user: action.payload,
                 loggedIn: true
             }
-            localStorage.setItem('User', JSON.stringify(action.payload));
-            return state;
         case "LOGOUT":
-            state = {
+            localStorage.removeItem('User');
+            return {
+                ...state,
                 user: undefined,
                 loggedIn: false
             }
-            localStorage.removeItem('User');
-            return state;
         default:
-            return state;
+            return {
+                ...state
+            }
     }
 }
 

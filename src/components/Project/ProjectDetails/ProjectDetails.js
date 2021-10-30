@@ -17,19 +17,21 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import axios from "axios";
 
-// import Disqus from "disqus-react";
+import Disqus from "disqus-react";
 
 import "./ProjectDetails.css";
 import { getProjectDetails } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
 
-// import CommentSection from "../CommentSection/CommentSection"
+import CommentSection from "../CommentSection/CommentSection"
+import { connect } from 'react-redux';
 
 function ProjectDetails(props) {
 
     const dispatch = useDispatch();
 
     const projectDetails = useSelector((state) => state.projects.projectDetails);
+    // console.log(projectDetails)
     const allProjects = useSelector((state) => state.projects.projects);
     const projectsQueryType = useSelector((state) => state.projects.queryType); 
 
@@ -238,9 +240,15 @@ function ProjectDetails(props) {
                 shortname={disqusShortname}
                 config={disqusConfig}
             /> */}
-            
+            <CommentSection comments={props.projectDetails?.comments} data={{projectID: props.projectDetails?.id, commentOnID: props.projectDetails?.id}} onPost={true}/>
         </div>
     )
 }
 
-export default withRouter(ProjectDetails);
+const mapStateToProps = (state) => {
+    return {
+        projectDetails: state.projects.projectDetails
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(ProjectDetails));
