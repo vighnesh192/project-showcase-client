@@ -19,10 +19,10 @@ function Comment(props) {
         <div className="comment">
             <Avatar
                 className={clsx(classes.sizeAvatar)}
-                src={
-                    JSON.parse(localStorage.getItem("User")).profilePic.url
-                }
-            />
+                src={props.comment.profilePic.url}
+            >
+                {props.comment.first_name ? props.comment.first_name[0].toUpperCase() : props.comment.username[0].toUpperCase()}
+            </Avatar>
             <div className="right">
                 <div className="comment-body">
                     {props.comment.body}
