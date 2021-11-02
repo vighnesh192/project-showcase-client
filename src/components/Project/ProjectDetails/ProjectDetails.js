@@ -17,10 +17,10 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import axios from "axios";
 
-import Disqus from "disqus-react";
+// import Disqus from "disqus-react";
 
 import "./ProjectDetails.css";
-import { getProjectDetails } from "../../../services/projectService";
+import { getProjectDetails, structureCommentsWithReplies } from "../../../services/projectService";
 import { setProjectDetails } from "../../../actions/projectActions";
 
 import CommentSection from "../CommentSection/CommentSection"
@@ -42,9 +42,10 @@ function ProjectDetails(props) {
         if(mounted) {
             getProjectDetails(props.match.params.projectId)
             .then((data) => {
-				dispatch(setProjectDetails(allProjects, projectsQueryType, data));
+                let newData = structureCommentsWithReplies(data);
+				dispatch(setProjectDetails(allProjects, projectsQueryType, newData));
                 if(localStorage.getItem('User')) {
-                    let found = data.allVotes.find((vote, index) => {
+                    let found = newData.allVotes.find((vote, index) => {
                             if(vote.votedBy === JSON.parse(localStorage.getItem('User')).id) {
                                 return true;
                             }

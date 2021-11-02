@@ -12,7 +12,6 @@ import Home from "./components/Home/Home";
 import useGaTracker from './useGaTracker'
 
 function App() {
-	console.log('WINDOW:---' ,window)
 	useGaTracker();
 
 	const dispatch = useDispatch();

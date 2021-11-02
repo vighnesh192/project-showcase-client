@@ -5,7 +5,7 @@ import CommentList from "./CommentList/CommentList";
 
 function CommentSection(props) {
     return (
-        <div id="comment-section">
+        <div className="comment-section">
             {props.onPost ? <CommentInput onPost={props.onPost} data={props.data}/> : ''}
             <CommentList comments={props.comments}/>
         </div>

@@ -4,9 +4,13 @@ import Comment from '../Comment/Comment'
 import './CommentList.css'
 
 function CommentList(props) {
-
-    const renderComment = props.commentList?.map((comment, index) => {
-        return <Comment comment={comment} key={index}/>
+    const renderComment = props.comments?.map((comment, index) => {
+        return (
+            <React.Fragment key={index}>
+                <Comment comment={comment}/>
+                <CommentList comments={comment["replies"]}/> 
+            </React.Fragment>
+        )
     })
 
     return (

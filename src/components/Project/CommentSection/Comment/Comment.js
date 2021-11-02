@@ -16,7 +16,7 @@ function Comment(props) {
     const classes = useStyles();
 
     return (
-        <div className="comment">
+        <div className={props.comment.onPost ? "comment" : "replies"}>
             <Avatar
                 className={clsx(classes.sizeAvatar)}
                 src={props.comment.profilePic.url}

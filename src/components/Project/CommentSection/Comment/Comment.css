@@ -3,6 +3,12 @@
     margin-top: 2rem;
 }
 
+.replies {
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 3.8rem;
+}
+
 .MuiAvatar-img .comment-avatar {
     height: 85%;
     width: 85%;
