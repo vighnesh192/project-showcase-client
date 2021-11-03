@@ -28,13 +28,25 @@ const postCommentSuccess = (data) => {
     }
 }
 
+const postReplySuccess = (data) => {
+    return {
+        type: 'POST_REPLY_SUCCESS',
+        payload: data
+    }
+}
+
 // Async Action using THUNK
 export const postComment = (data) => {
     return (dispatch) => {
         axios.post(`/projects/${data?.projectID}/comment/`, data)
             .then((response) => {
                 if(response.data.success) {
-                   dispatch(postCommentSuccess(response.data.comment));
+                    if(response.data.comment.onPost) {
+                        dispatch(postCommentSuccess(response.data?.comment));
+                    }
+                    else {
+                        dispatch(postReplySuccess(response.data?.comment));
+                    }
                 }
             })
     }

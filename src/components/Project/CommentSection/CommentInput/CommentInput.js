@@ -19,6 +19,9 @@ function CommentInput(props) {
             onPost: props.onPost,
             body: values.body
         }
+        if(!props.onPost) {
+            props.handleReplySubmit();
+        }
         props.postComment(data)
     }
     
@@ -35,10 +38,16 @@ function CommentInput(props) {
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        projectDetails: state.projectDetails
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         postComment: (data) => dispatch(postComment(data)) 
     }
 }
 
-export default connect(null, mapDispatchToProps)(CommentInput)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentInput)

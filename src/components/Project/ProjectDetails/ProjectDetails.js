@@ -43,6 +43,7 @@ function ProjectDetails(props) {
             getProjectDetails(props.match.params.projectId)
             .then((data) => {
                 let newData = structureCommentsWithReplies(data);
+                // console.log(newData.comments[newData.comments.indexOf({id:1})])
 				dispatch(setProjectDetails(allProjects, projectsQueryType, newData));
                 if(localStorage.getItem('User')) {
                     let found = newData.allVotes.find((vote, index) => {
@@ -66,14 +67,14 @@ function ProjectDetails(props) {
         }
     }, [upvoted]);   
 
-    const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/project' : 'https://projstemp.herokuapp.com/project';
+    // const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/project' : 'https://projstemp.herokuapp.com/project';
 
-    const disqusShortname = "projectshowcase"
-    const disqusConfig = {
-      url: projectDetails ? `${url}/${projectDetails.id}` : '',
-      identifier: projectDetails ? projectDetails.id : '',
-      title: "Project Showcase"
-    }
+    // const disqusShortname = "projectshowcase"
+    // const disqusConfig = {
+    //   url: projectDetails ? `${url}/${projectDetails.id}` : '',
+    //   identifier: projectDetails ? projectDetails.id : '',
+    //   title: "Project Showcase"
+    // }
     
     const useStyles = makeStyles((theme) => ({
         card: {

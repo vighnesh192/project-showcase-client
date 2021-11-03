@@ -71,8 +71,6 @@ const BasicProfile = withRouter((props) => {
 
 	const [upvoted, setUpvoted] = useState(false);
 
-	console.log('BasicProfile PROPS', props);
-
 	useEffect(() => {
 		let mounted = true;
 		if(mounted) {
@@ -214,8 +212,6 @@ export const ProjectCard = React.memo(function ShowcaseCard(props) {
 	const gap = { xs: 1, sm: 1.5, lg: 2 };
 	const projectsQueryType = useSelector((state) => state.projects.queryType);
 	const allProjects = useSelector((state) => state.projects.projects);
-
-	console.log('PROJECT CARD PROPS', props)
 
 	const handleProjectCardClick = (id) => {
         getProjectDetails(id)

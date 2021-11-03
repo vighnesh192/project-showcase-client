@@ -29,6 +29,19 @@ const projectReducer = (state = initialState, action) => {
                     comments: [...state.projectDetails.comments, action.payload]
                 }
             }
+        
+        case 'POST_REPLY_SUCCESS':
+            let index = state.projectDetails.comments.findIndex(comment => comment.id === action.payload.commentOnID)
+            let newReplies = [...state.projectDetails.comments[index].replies, action.payload]
+            let newObj = {
+                ...state,
+                projectDetails: {
+                    ...state.projectDetails,
+                    comments: JSON.parse(JSON.stringify(state.projectDetails.comments))
+                },
+            }
+            newObj.projectDetails.comments[index].replies = newReplies;
+            return newObj;
 
         default:
             return {

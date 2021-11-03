@@ -37,3 +37,16 @@
     cursor: pointer;
     color: #000000a3;
 }
+
+.reply-active {
+    background-color: #0000000f;
+    width: 2.65rem;
+    padding: 4px 5px 6px;
+    border-radius: 2.5px;
+}
+
+.reply-input {
+    margin-left: 3.8rem;
+    margin-top: 2rem;
+    height: 2rem;
+}

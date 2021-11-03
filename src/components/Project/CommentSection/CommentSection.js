@@ -7,7 +7,7 @@ function CommentSection(props) {
     return (
         <div className="comment-section">
             {props.onPost ? <CommentInput onPost={props.onPost} data={props.data}/> : ''}
-            <CommentList comments={props.comments}/>
+            <CommentList comments={props.comments} data={props.data}/>
         </div>
     )
 }
