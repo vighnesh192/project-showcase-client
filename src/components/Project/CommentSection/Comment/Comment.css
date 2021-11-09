@@ -9,10 +9,8 @@
     margin-left: 3.8rem;
 }
 
-.MuiAvatar-img .comment-avatar {
-    height: 85%;
-    width: 85%;
-    border-radius: 50%;
+.comment-avatar {
+    cursor: pointer;
 }
 
 .right {
@@ -21,8 +19,15 @@
     margin-left: 1.5rem;
 }
 
+.comment-by {
+    font-size: 0.8rem;
+    margin-top: -3px;
+    cursor: pointer;
+}
+
 .comment-body {
     font-size: 0.9rem;
+    margin-top: 0.4rem;
 }
 
 .reply {

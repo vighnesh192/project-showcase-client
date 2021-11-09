@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { withRouter } from 'react-router-dom';
 import Avatar from "@material-ui/core/Avatar";
 
 import './Comment.css';
@@ -27,16 +28,24 @@ function Comment(props) {
         refReply.current.className = !replyToggle ? "reply reply-active" : "reply";
     }
 
+    const onCreatorClick = (id) => {
+        props.history.push(`/user/${id}`);
+    }
+
     return (
         <div ref={refComment} id={props.comment.id}>
             <div className={props.comment.onPost ? "comment" : "replies"}>
                 <Avatar
-                    className={clsx(classes?.sizeAvatar)}
+                    className={clsx(classes?.sizeAvatar, "comment-avatar")}
                     src={props?.comment?.profilePic?.url}
+                    onClick={() => onCreatorClick(props?.comment?.userID)}
                 >
                     {/* {props?.comment?.first_name ? props?.comment?.first_name[0]?.toUpperCase() : props?.comment?.username[0].toUpperCase()} */}
                 </Avatar>
                 <div className="right">
+                    <div className="comment-by" onClick={() => onCreatorClick(props?.comment?.userID)}>
+                        {`${props?.comment?.first_name ? props?.comment?.first_name : ''} ${props?.comment?.last_name ? props.comment.last_name : ''}`}
+                    </div>  
                     <div className="comment-body">
                         {props.comment.body}
                     </div>
@@ -54,4 +63,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Comment);
+export default withRouter(connect(mapStateToProps)(Comment));
