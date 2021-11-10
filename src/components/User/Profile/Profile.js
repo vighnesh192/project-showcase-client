@@ -24,7 +24,6 @@ const Profile = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      console.log('here')
       let mounted = true;
       if(mounted) {
         getUserProfile(props.match.params.userId)

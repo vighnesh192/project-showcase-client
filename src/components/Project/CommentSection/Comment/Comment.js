@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { withRouter } from 'react-router-dom';
+
 import Avatar from "@material-ui/core/Avatar";
+import EditIcon from '@mui/icons-material/Edit';
 
 import './Comment.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +12,7 @@ import { connect } from 'react-redux';
 
 function Comment(props) {
     const [replyToggle, setReplyToggle] = useState(false);
+    const [commentEditToggle, setCommentEditToggle] = useState(false);
 
     const refReply = useRef(null);
     const refComment = useRef(null);
@@ -27,6 +30,10 @@ function Comment(props) {
         setReplyToggle(!replyToggle);
         refReply.current.className = !replyToggle ? "reply reply-active" : "reply";
     }
+    
+    const submitEditToggle = () => {
+        setCommentEditToggle(!commentEditToggle);
+    }
 
     const onCreatorClick = (id) => {
         props.history.push(`/user/${id}`);
@@ -43,11 +50,23 @@ function Comment(props) {
                     {/* {props?.comment?.first_name ? props?.comment?.first_name[0]?.toUpperCase() : props?.comment?.username[0].toUpperCase()} */}
                 </Avatar>
                 <div className="right">
-                    <div className="comment-by" onClick={() => onCreatorClick(props?.comment?.userID)}>
-                        {`${props?.comment?.first_name ? props?.comment?.first_name : ''} ${props?.comment?.last_name ? props.comment.last_name : ''}`}
+                    <div className="comment-header">
+                        <div className="comment-by"  onClick={() => onCreatorClick(props?.comment?.userID)}>
+                            {`${props?.comment?.first_name ? props?.comment?.first_name : ''} ${props?.comment?.last_name ? props.comment.last_name : ''}`}
+                        </div>
+                        {JSON.parse(localStorage.getItem('User')).id === props.comment.userID ? 
+                            <div className="button-list">
+                                <EditIcon sx={{ fontSize: 15 }} className="comment-edit-button" onClick={() => setCommentEditToggle(!commentEditToggle)}/>
+                            </div>
+                            :
+                            ''
+                        }
                     </div>  
                     <div className="comment-body">
-                        {props.comment.body}
+                        {
+                            !commentEditToggle ? props.comment.body : 
+                                <CommentInput onPost={props.comment.onPost} submitEditToggle={submitEditToggle} commentToEdit={props.comment} placeholder={props.comment.body} data={props.data} handleReplySubmit={clickedReply} />
+                        }
                     </div>
                     {props.comment.onPost ? <div className="reply" ref={refReply} onClick={() => clickedReply()}>Reply</div> : ""}
                 </div>

@@ -35,6 +35,13 @@ const postReplySuccess = (data) => {
     }
 }
 
+const editCommentSuccess = (data) => {
+    return {
+        type: 'EDIT_COMMENT_SUCCESS',
+        payload: data
+    }
+}
+
 // Async Action using THUNK
 export const postComment = (data) => {
     return (dispatch) => {
@@ -48,6 +55,20 @@ export const postComment = (data) => {
                         dispatch(postReplySuccess(response.data?.comment));
                     }
                 }
+            })
+    }
+}
+
+export const editComment = (data) => {
+    return (dispatch) => {
+        axios.patch(`/projects/${data?.projectID}/comment/${data?.commentID}`, {body: data.body})
+            .then((response) => {
+                if(response.data.success) {
+                    dispatch(editCommentSuccess(response.data.comment))
+                }
+            })
+            .catch((error) => {
+                console.log(error)
             })
     }
 }

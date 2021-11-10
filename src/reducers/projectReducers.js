@@ -43,6 +43,28 @@ const projectReducer = (state = initialState, action) => {
             newObj.projectDetails.comments[index].replies = newReplies;
             return newObj;
 
+        case 'EDIT_COMMENT_SUCCESS':
+            const { onPost, id, body, commentOnID } = action.payload;
+            let newState = {
+                ...state,
+                projectDetails: {
+                    ...state.projectDetails,
+                    comments: [
+                        ...state.projectDetails.comments,
+                    ]
+                }
+            }
+            if(onPost) {
+                let index = state.projectDetails.comments.findIndex(comment => comment.id === id && comment.onPost === onPost)
+                newState.projectDetails.comments[index].body = body;
+                return newState;
+            }
+            let commentIndex = state.projectDetails.comments.findIndex(comment => comment.id === commentOnID)
+            let replyIndex = state.projectDetails.comments[commentIndex].replies.findIndex(reply => reply.id === id)
+            newState.projectDetails.comments[commentIndex].replies = [...state.projectDetails.comments[commentIndex].replies]
+            newState.projectDetails.comments[commentIndex].replies[replyIndex].body = body;
+            return newState;
+
         default:
             return {
                 ...state

@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { postComment } from '../../../../actions/projectActions';
+import { editComment, postComment } from '../../../../actions/projectActions';
 import './CommentInput.css'
 
 function CommentInput(props) {
     const [values, setValues] = React.useState({
-        body: '',
+        body: props.commentToEdit ? props.commentToEdit.body : '',
         onPost: props.onPost,
     });
 
@@ -19,10 +19,13 @@ function CommentInput(props) {
             onPost: props.onPost,
             body: values.body
         }
-        if(!props.onPost) {
+        if(!props.onPost && !props.commentToEdit) {
             props.handleReplySubmit();
         }
-        props.postComment(data)
+        !props.commentToEdit ? 
+            props.postComment(data) : 
+            props.editComment({ commentID: props.commentToEdit.id, body: values.body });
+            props.submitEditToggle();
     }
     
     return (
@@ -46,7 +49,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        postComment: (data) => dispatch(postComment(data)) 
+        postComment: (data) => dispatch(postComment(data)), 
+        editComment: (data) => dispatch(editComment(data)), 
     }
 }
 
