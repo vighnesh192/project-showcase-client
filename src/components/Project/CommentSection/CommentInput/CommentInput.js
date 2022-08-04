@@ -22,10 +22,14 @@ function CommentInput(props) {
         if(!props.onPost && !props.commentToEdit) {
             props.handleReplySubmit();
         }
-        !props.commentToEdit ? 
-            props.postComment(data) : 
+        console.log("commentToEdit:- ", props.commentToEdit);
+        if(!props.commentToEdit) {
+            props.postComment(data);
+        }
+        else {
             props.editComment({ commentID: props.commentToEdit.id, body: values.body });
             props.submitEditToggle();
+        }
     }
     
     return (
