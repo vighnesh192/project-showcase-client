@@ -9,10 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
 
-
 import '../../../index.css';
 import './Profile.css'
-import { getUserProfile } from '../../../services/userService';
+import { followUnfollow, getFollowedData, getUserProfile } from '../../../services/userService';
 import { setUserProfile } from '../../../actions/userActions';
 import DisplayProjects from '../../Project/DisplayProjects/DisplayProjects';
 import { getProjectsByUser, getUpvotedProjectsByUser } from '../../../services/projectService';  
@@ -20,6 +19,7 @@ import { setProjects } from '../../../actions/projectActions';
 
 const Profile = (props) => {
     const [tabState, setTabState] = useState('projects-tab');
+    const [showFollow, setShowFollow] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -41,6 +41,12 @@ const Profile = (props) => {
                     dispatch(setProjects(data, 'popular'))
                   });
               }
+              getFollowedData(props.match.params.userId)
+                .then(data => {
+                  console.log("GET FOLLOWED DATA:-", data);
+                  setShowFollow(!data.success);
+                })
+                .catch(err => console.error("GET FOLLOWED DATA ERROR", err));
             })
             .catch((err) => console.log('Error', err));
       }
@@ -121,6 +127,9 @@ const Profile = (props) => {
       }
     };
 
+    theme.palette.primary.main = '#3F3D56';
+    theme.palette.primary.contrastText = '#fff';
+
     const handleTabClick = (id) => {
       setTabState(id);
       if(id === 'projects-tab') {
@@ -139,6 +148,15 @@ const Profile = (props) => {
         document.getElementById('upvoted-tab').style.borderBottom = '1px solid #262626';
         document.getElementById('projects-tab').style.borderBottom = 'none';
       }
+    }
+
+    const handleFollowClick = () => {
+      // props.match.params.userId
+      console.log("FOLLOWED", showFollow);
+      followUnfollow(props.match.params.userId).then((data) => {
+        data.success ? setShowFollow(!showFollow) : console.error("FOLLOW ERROR");
+      })
+      .catch(error => console.error("FOLLOW ERROR:-", error));
     }
 
     return (
@@ -165,6 +183,7 @@ const Profile = (props) => {
                     <Typography variant="body2" className={classes.bio}>
                       {profile ? profile.bio != null ? profile.bio : 'CREATOR' : 'CREATOR'}
                     </Typography>
+                    {showFollow ? <button id="follow" onClick={handleFollowClick}>Follow</button> : <button id="follow" onClick={handleFollowClick}>Unfollow</button>} 
                   </ThemeProvider>
                 </React.Fragment>
               }
